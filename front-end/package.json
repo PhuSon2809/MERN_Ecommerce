@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://10.1.107.240:4000",
+  "proxy": "http://192.168.1.8:4000",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -16,7 +16,6 @@
     "@stripe/stripe-js": "^1.32.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
-    "bootstrap-icons": "^1.9.1",
     "bootstrap-social": "^5.1.1",
     "chart.js": "^3.8.0",
     "country-state-city": "^3.0.1",
@@ -42,6 +41,7 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "swiper": "^9.1.0",
     "webfontloader": "^1.6.28"
   },
   "scripts": {

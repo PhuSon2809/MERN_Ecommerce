@@ -10,7 +10,6 @@ import AlertTemplate from "react-alert-template-basic";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
 import "bootstrap-social/bootstrap-social.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const options = {
   timeout: 5000,
@@ -20,10 +19,9 @@ const options = {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
- 
-    <Provider store={store}>
-      <AlertProvider template={AlertTemplate} {...options}>
-        <App />
-      </AlertProvider>
-    </Provider>
+  <Provider store={store}>
+    <AlertProvider template={AlertTemplate} {...options}>
+      <App />
+    </AlertProvider>
+  </Provider>
 );
