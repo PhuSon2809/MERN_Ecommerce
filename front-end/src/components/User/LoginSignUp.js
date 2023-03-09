@@ -7,6 +7,7 @@ import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import Loader from "../layout/Loader/Loader";
 import { useNavigate } from "react-router-dom";
+import { InputBase } from "@mui/material";
 
 const LoginSignUp = () => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const LoginSignUp = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
           setAvatar(reader.result);
-        } 
+        }
       };
 
       reader.readAsDataURL(e.target.files[0]);
@@ -94,7 +95,7 @@ const LoginSignUp = () => {
     }
 
     if (isAuthenticated) {
-      navigate(redirect)
+      navigate("/");
     }
   }, [dispatch, navigate, error, alert, isAuthenticated, redirect]);
 
@@ -121,6 +122,7 @@ const LoginSignUp = () => {
                 onSubmit={loginSubmit}
               >
                 <h2 className="title">Login</h2>
+                <InputBase />
                 <div className="input-field">
                   <i className="fa-solid fa-envelope"></i>
                   <input

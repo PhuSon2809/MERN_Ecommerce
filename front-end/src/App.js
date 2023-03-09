@@ -40,6 +40,8 @@ import Profile from "./components/User/Profile";
 import ResetPassword from "./components/User/ResetPassword";
 import UpdatePassword from "./components/User/UpdatePassword";
 import UpdateProfile from "./components/User/UpdateProfile";
+import Login from "./components/User/Login";
+import Register from "./components/User/Register";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -182,7 +184,9 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/login" element={<LoginSignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registerAll" element={<LoginSignUp />} />
+          <Route path="/register" element={<Register />} />
           <Route exact path="/cart" element={<Cart />} />
         </Routes>
         <Routes>

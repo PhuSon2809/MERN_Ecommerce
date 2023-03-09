@@ -25,7 +25,7 @@ import {
   ContentUser,
   DateTime,
   NameUser,
-  Title
+  Title,
 } from "./HomeStyle";
 
 const Home = () => {
@@ -49,7 +49,7 @@ const Home = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="Pet Sitter" />
+          <MetaData title="Electronic Lyte" />
           <Container>
             <Carousel />
             <Grid container sx={{ mb: 4 }}>
@@ -127,12 +127,12 @@ const Home = () => {
                 <Box>
                   <Title>OWN PRODUCTS</Title>
                   <Grid container sx={{ mt: 5 }}>
-                  {productsRandom &&
-                    productsRandom.map((product) => (
-                      <Grid item md={4} key={product.id}>
-                        <ProductItem product={product} />
-                      </Grid>
-                    ))}
+                    {productsRandom &&
+                      productsRandom.map((product) => (
+                        <Grid item md={4} key={product.id}>
+                          <ProductItem product={product} />
+                        </Grid>
+                      ))}
                   </Grid>
                 </Box>
                 <ButtonCustom color="#000" width="100%">

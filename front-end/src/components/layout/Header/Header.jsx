@@ -246,11 +246,9 @@ function Header() {
               </Badge>
             </IconButton>
             {!isAuthenticated ? (
-              <ButtonCustom color="#000">
-                <Link to="/login" sx={{ color: "#000" }}>
-                  Login
-                </Link>
-              </ButtonCustom>
+              <Link to="/login">
+                <ButtonCustom color="#000">Login</ButtonCustom>
+              </Link>
             ) : (
               <>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
