@@ -23,6 +23,12 @@ const userSchema = new mongoose.Schema({
     minlength: [6, "Password should be greater than 6 character"],
     select: false,
   },
+  address: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
   avatar: {
     public_id: {
       required: true,
@@ -33,24 +39,20 @@ const userSchema = new mongoose.Schema({
       type: String,
     },
   },
-
   role: {
     type: String,
     default: "user",
   },
-
   posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Post',
-    }
+      ref: "Post",
+    },
   ],
-
   createdAt: {
     type: Date,
-    default: Date.now
-},
-
+    default: Date.now,
+  },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });
