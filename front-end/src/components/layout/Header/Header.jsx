@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import BoltIcon from "@mui/icons-material/Bolt";
-import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
-import MenuIcon from "@mui/icons-material/Menu";
-import ListAltIcon from "@mui/icons-material/ListAlt";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
+import BoltIcon from "@mui/icons-material/Bolt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   AppBar,
   Avatar,
@@ -16,9 +16,13 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Typography,
+  Typography
 } from "@mui/material";
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { logout } from "../../../actions/userAction";
+import ButtonCustom from "../../../container/ButtonCustom/ButtonCustom";
 import {
   BoxAction,
   BoxLogo,
@@ -28,12 +32,8 @@ import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
-  ToolbarBox,
+  ToolbarBox
 } from "./HeaderStyle";
-import ButtonCustom from "../../../container/ButtonCustom/ButtonCustom";
-import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
-import { logout } from "../../../actions/userAction";
 
 const pages = [
   { title: "Home", link: "/" },
@@ -252,7 +252,7 @@ function Header() {
             ) : (
               <>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={user?.avatar.url} />
                 </IconButton>
                 <Menu
                   sx={{ mt: "45px" }}

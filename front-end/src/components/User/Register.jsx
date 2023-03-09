@@ -6,7 +6,7 @@ import { Container, IconButton, Typography } from "@mui/material";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { clearErrors, login } from "../../actions/userAction";
+import { clearErrors, register } from "../../actions/userAction";
 import ButtonCustom from "../../container/ButtonCustom/ButtonCustom";
 import {
   BoxLogo,
@@ -15,7 +15,7 @@ import {
   IconWrapper,
   InputWrapper,
   StyledInputBase,
-} from "./LoginSignupStyle";
+} from "./userStyle";
 
 function Register() {
   const alert = useAlert();
@@ -26,12 +26,19 @@ function Register() {
     (state) => state.user
   );
 
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const loginSubmit = (e) => {
+  const registerSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(loginEmail, loginPassword));
+
+    const myForm = new FormData();
+
+    myForm.set("name", name);
+    myForm.set("email", email);
+    myForm.set("password", password);
+    dispatch(register(myForm));
   };
 
   useEffect(() => {
@@ -41,7 +48,7 @@ function Register() {
     }
 
     if (isAuthenticated) {
-      navigate("/");
+      navigate("/login");
     }
   }, [dispatch, navigate, error, alert, isAuthenticated]);
 
@@ -67,6 +74,23 @@ function Register() {
 
         <from>
           <FormInput fullWidth sx={{ mb: 3 }}>
+            <label style={{ fontWeight: "600" }}>Name</label>
+            <InputWrapper>
+              <IconWrapper>
+                <EmailOutlinedIcon sx={{ color: "#000" }} />
+              </IconWrapper>
+              <StyledInputBase
+                fullWidth
+                placeholder="Your name"
+                inputProps={{ "aria-label": "Name" }}
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </InputWrapper>
+          </FormInput>
+
+          <FormInput fullWidth sx={{ mb: 3 }}>
             <label style={{ fontWeight: "600" }}>Email</label>
             <InputWrapper>
               <IconWrapper>
@@ -77,8 +101,8 @@ function Register() {
                 placeholder="Your email"
                 inputProps={{ "aria-label": "Email" }}
                 type="email"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </InputWrapper>
           </FormInput>
@@ -94,8 +118,8 @@ function Register() {
                 placeholder="Your password"
                 inputProps={{ "aria-label": "Password" }}
                 type="password"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </InputWrapper>
           </FormInput>
@@ -107,7 +131,7 @@ function Register() {
             }}
           >
             <Link
-              to="/register"
+              to="/password/forgot"
               style={{
                 textDecoration: "underline",
                 color: "#000",
@@ -117,16 +141,20 @@ function Register() {
             </Link>
           </div>
         </from>
-        <ButtonCustom width="100%" onClick={loginSubmit} color="#000">
-          Login
+        <ButtonCustom width="100%" onClick={registerSubmit} color="#000">
+          Register
         </ButtonCustom>
         <Typography>
-          Don’t have an account?
+          Are you already account?
           <Link
-            to="/register"
-            style={{ textDecoration: "underline", color: "#000" }}
+            to="/login"
+            style={{
+              textDecoration: "underline",
+              color: "#000",
+              marginLeft: "5px",
+            }}
           >
-            Sign up
+            Sign in
           </Link>
         </Typography>
       </BoxWrapper>

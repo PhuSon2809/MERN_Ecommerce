@@ -11,7 +11,6 @@ import { useAlert } from "react-alert";
 import { getAdminProduct } from "../../actions/productAction";
 import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
-import { getAdminPet } from "../../actions/petAction";
 import MetaData from "../layout/MetaData";
 ChartJS.register(...registerables);
 
@@ -20,7 +19,6 @@ const Dashboard = () => {
   const { products } = useSelector((state) => state.products);
   const { orders } = useSelector((state) => state.allOrders);
   const { users } = useSelector((state) => state.allUsers);
-  const { pets } = useSelector((state) => state.pets);
 
   let outOfStock = 0;
 
@@ -41,7 +39,6 @@ const Dashboard = () => {
     dispatch(getAdminProduct());
     dispatch(getAllOrders());
     dispatch(getAllUsers());
-    dispatch(getAdminPet());
   }, [dispatch]);
 
   const lineState = {
@@ -92,10 +89,6 @@ const Dashboard = () => {
               <Link to="/admin/users" className="dashboardUser">
                 <p>Users</p>
                 <p>{users && users.length}</p>
-              </Link>
-              <Link to="/admin/pets" className="dashboardPet">
-                <p>Pets</p>
-                <p>{pets && pets.length}</p>
               </Link>
             </div>
           </div>
