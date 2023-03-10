@@ -13,6 +13,8 @@ import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
 import { getAdminPet } from "../../actions/petAction";
 import MetaData from "../layout/MetaData";
+import Welcome from "./Welcome/Welcome";
+import Tag from "./Tag/Tag";
 ChartJS.register(...registerables);
 
 const Dashboard = () => {
@@ -73,39 +75,34 @@ const Dashboard = () => {
       <div className="dashboard">
         <Sidebar />
         <div className="dashboardContainer">
-          <Typography component="h1">Dashboard</Typography>
+          <Welcome />
           <div className="dashboardSummary">
-            <div>
-              <p>
-                Total Amount <br /> {totalAmount} VND{" "}
-              </p>
-            </div>
             <div className="dashboardSummaryBox2">
               <Link to="/admin/products">
-                <p>Product</p>
-                <p>{products && products.length}</p>
+                <Tag label={"Product"} color={'primary'} value={products && products.length} />
               </Link>
               <Link to="/admin/orders">
-                <p>Orders</p>
-                <p>{orders && orders.length}</p>
+                <Tag label={"Orders"} color={'warning'} value={orders && orders.length} />
               </Link>
-              <Link to="/admin/users" className="dashboardUser">
-                <p>Users</p>
-                <p>{users && users.length}</p>
+              <Link to="/admin/users">
+                <Tag label={"Users"} color={'info'} value={users && users.length} />
               </Link>
-              <Link to="/admin/pets" className="dashboardPet">
-                <p>Pets</p>
-                <p>{pets && pets.length}</p>
-              </Link>
+              <a>
+              <Tag label={'Total Amount'} color={'danger'} value={totalAmount}/>
+              </a>
             </div>
           </div>
 
-          <div className="lineChart">
-            <Line data={lineState} />
-          </div>
+          <div className="dashboard-chart">
+            <div className="doughnutChart">
+              <p style={{marginBottom: '60px', marginTop: '20px'}}>Chart something</p>
+              <Doughnut data={doughnutState} />
+            </div>
 
-          <div className="doughnutChart">
-            <Doughnut data={doughnutState} />
+            <div className="lineChart">
+            <p>Chart something</p>
+              <Line data={lineState} />
+            </div>
           </div>
         </div>
       </div>
