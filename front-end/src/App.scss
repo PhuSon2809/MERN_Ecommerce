@@ -38,6 +38,13 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.transition2 {
+  transition: all 0.3s ease-in-out !important;
+  &:hover {
+    transform: scale(1.08);
+  }
+}
+
 .swiper {
   width: 100%;
 }
