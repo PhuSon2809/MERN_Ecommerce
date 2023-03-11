@@ -4,27 +4,23 @@ import { Box } from "@mui/material";
 import HeadlessTippy from "@tippyjs/react/headless";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { clearErrors, getProduct, getProductByKeyword } from "../../actions/productAction";
+import { clearErrors, getProductByKeyword } from "../../actions/productAction";
+import { SEARCH_PRODUCT_REQUEST } from "../../constants/productConstants";
 import useDebounce from "../../hooks/useDebounce";
-import { SearchBox, SearchIconWrapper, StyledInputBase } from "./SearchStyle";
 import FetureProduct from "../FetureProduct/FetureProduct";
 import "./Search.scss";
+import { SearchBox, SearchIconWrapper, StyledInputBase } from "./SearchStyle";
 
 function Search() {
   const alert = useAlert();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { products, productSearch, error } = useSelector(
-    (state) => state.products
-  );
-  console.log(productSearch);
+  const { productSearch, error } = useSelector((state) => state.productSearch);
+
   const [searchValue, setSearchValue] = useState("");
   const [showResult, setShowResult] = useState(false);
 
   const debounceValue = useDebounce(searchValue, 500);
-  console.log(debounceValue);
 
   const handleChange = (e) => {
     const searchValue = e.target.value;
@@ -42,8 +38,12 @@ function Search() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProductByKeyword(debounceValue));
-  }, [dispatch, debounceValue]);
+    if (debounceValue !== "") {
+      dispatch(getProductByKeyword(debounceValue));
+    } else {
+      dispatch({ type: SEARCH_PRODUCT_REQUEST });
+    }
+  }, [dispatch, debounceValue, alert, error]);
 
   return (
     <Box>
@@ -55,9 +55,10 @@ function Search() {
         render={(attrs) => (
           <div className="search-result" tabIndex="-1" {...attrs}>
             <div className="box-result">
-              {productSearch.map((product) => (
-                <FetureProduct key={product._id} product={product} />
-              ))}
+              {productSearch &&
+                productSearch?.map((product) => (
+                  <FetureProduct key={product._id} product={product} />
+                ))}
             </div>
           </div>
         )}

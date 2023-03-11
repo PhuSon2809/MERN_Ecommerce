@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import Pagination from "react-js-pagination";
 import Typography from "@material-ui/core/Typography";
-import { Container, Grid, Pagination, Slider, Stack } from "@mui/material";
+import { Box, Container, Grid, Pagination, Slider, Stack } from "@mui/material";
 import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 import { clearErrors, getProduct } from "../../actions/productAction";
@@ -17,16 +16,7 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(currentPage);
   const [price, setPrice] = useState([0, 3000000]);
-  const priceRanges = [
-    { label: "Less than 10,000", value: [0, 10000] },
-    { label: "10,000 - 50,000", value: [10000, 50000] },
-    { label: "50,000 - 100,000", value: [50000, 100000] },
-    { label: "100,000 - 500,000", value: [100000, 500000] },
-    { label: "500,000 - 1,000,000", value: [500000, 1000000] },
-    { label: "More than 1,000,000", value: [1000000, 3000000] },
-  ];
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -39,34 +29,13 @@ const Products = () => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const setCurrentPageNo = (e) => {
-    setCurrentPage(e);
+  const setCurrentPageNo = (e, page) => {
+    setCurrentPage(page);
   };
 
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
   };
-
-  // const handlePageChange = (e, page) => {
-  //   setFilters((prevFilters) => ({
-  //     ...prevFilters,
-  //     pageIndex: page,
-  //   }));
-  // };
-
-  const handleChangePrice = (e) => {
-    const value = e.target.value;
-    const [minPrice, maxPrice] = value.split(",").map(Number);
-    let newPriceRange = [];
-    if (e.target.checked) {
-      newPriceRange = [minPrice, maxPrice];
-    } else {
-      newPriceRange = [0, 3000000];
-    }
-    setPrice(newPriceRange);
-  };
-
-  let count = filteredProductsCount;
 
   const { keyword } = useParams();
   useEffect(() => {
@@ -126,37 +95,27 @@ const Products = () => {
                     </Grid>
                   ))}
 
-                <Stack spacing={2} sx={{ mr: "auto", ml: "auto" }}>
-                  <Pagination
-                    count={Math.ceil(productsCount / resultPerPage)}
-                    page={currentPage}
-                    onChange={setCurrentPageNo}
-                    variant="outlined"
-                    color="secondary"
-                  />
-                </Stack>
+                <Box
+                  sx={{ width: "100%", display: "flex", alignItems: "center" }}
+                >
+                  <Stack spacing={2} sx={{ mr: "auto", ml: "auto" }}>
+                    <Pagination
+                      count={Math.ceil(
+                        filteredProductsCount
+                          ? filteredProductsCount / resultPerPage
+                          : productsCount / resultPerPage
+                      )}
+                      page={currentPage}
+                      onChange={setCurrentPageNo}
+                      variant="outlined"
+                      color="secondary"
+                      sx={{ width: "100%" }}
+                    />
+                  </Stack>
+                </Box>
               </Grid>
             </Grid>
           </Grid>
-
-          {/* {resultPerPage < count && (
-            <div className="paginationBox">
-              <Pagination
-                activePage={currentPage}
-                itemsCountPerPage={resultPerPage}
-                totalItemsCount={productsCount}
-                onChange={setCurrentPageNo}
-                nextPageText="Next"
-                prevPageText="Prev"
-                firstPageText="1st"
-                lastPageText="Last"
-                itemClass="page-item"
-                linkClass="page-link"
-                activeClass="pageItemActive"
-                activeLinkClass="pageLinkActive"
-              />
-            </div>
-          )} */}
         </Fragment>
       )}
     </Container>

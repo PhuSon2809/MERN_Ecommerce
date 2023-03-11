@@ -31,7 +31,7 @@ import Footer from "./components/layout/Footer/Footer";
 import Header from "./components/layout/Header/Header";
 import MyOrders from "./components/Order/MyOrders";
 import OrderDetails from "./components/Order/OrderDetails";
-import ProtectedRoute from "./components/Route/ProtectedRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import Profile from "./components/User/Profile";
 import ResetPassword from "./components/User/ResetPassword";
 import UpdatePassword from "./components/User/UpdatePassword";
@@ -40,8 +40,6 @@ import Register from "./components/User/Register";
 import ForgotPassword from "./components/User/ForgotPassword";
 
 function App() {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
-
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
@@ -159,7 +157,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/products/:keyword" element={<Products />} />
+        {/* <Route path="/products/:keyword" element={<Products />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/cart" element={<Cart />} />

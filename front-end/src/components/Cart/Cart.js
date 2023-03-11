@@ -3,16 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import Typography from "@material-ui/core/Typography";
-import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { addItemsToCart, removeItemsFromCart } from "../../actions/cartAction";
 import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  const { cartItems } = useSelector((state) => state.cart);
   
-
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {

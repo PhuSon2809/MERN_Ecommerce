@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
@@ -44,7 +44,6 @@ const Profile = () => {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
   const { error, isUpdated, loading: upadteLoading } = useSelector((state) => state.profile);
 
-  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated === false) {
@@ -116,7 +115,6 @@ const Profile = () => {
                     <ModalUpdateProfile
                       toogleOpen={toogleOpen}
                       isOpen={isOpen}
-                      setReload={setReload}
                     />
                   )}
                 </BoxAction>

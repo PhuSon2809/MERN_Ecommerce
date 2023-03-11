@@ -12,12 +12,12 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { clearErrors, loadUser, updateProfile } from "../../actions/userAction";
+import { clearErrors, updateProfile } from "../../actions/userAction";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstant";
 import { CloseButton, SubmitButton, TextTitle } from "./userStyle";
 import Loader from "../layout/Loader/Loader";
 
-function ModalUpdateProfile({ isOpen, toogleOpen, setReload }) {
+function ModalUpdateProfile({ isOpen, toogleOpen }) {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
@@ -81,7 +81,6 @@ function ModalUpdateProfile({ isOpen, toogleOpen, setReload }) {
         myForm.set("phone", formik.values.phone);
         myForm.set("avatar", avatar);
         dispatch(updateProfile(myForm));
-        setReload(true);
       }
       formikHelpers.resetForm();
       toogleOpen();

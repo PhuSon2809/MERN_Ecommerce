@@ -40,18 +40,13 @@ import {
   SEARCH_PRODUCT_REQUEST,
 } from "../constants/productConstants";
 
-export const productsReducer = (
-  state = { products: [], productSearch: [] },
-  action
-) => {
+export const productsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case ALL_PRODUCT_REQUEST:
-    case SEARCH_PRODUCT_REQUEST:
     case ADMIN_PRODUCT_REQUEST:
       return {
         loading: true,
         products: [],
-        productSearch: []
       };
 
     case ALL_PRODUCT_SUCCESS:
@@ -62,11 +57,6 @@ export const productsReducer = (
         resultPerPage: action.payload.resultPerPage,
         filteredProductsCount: action.payload.filteredProductsCount,
       };
-    case SEARCH_PRODUCT_SUCCESS:
-      return {
-        loading: false,
-        productSearch: action.payload.product,
-      };
     case ADMIN_PRODUCT_SUCCESS:
       return {
         loading: false,
@@ -74,8 +64,40 @@ export const productsReducer = (
       };
 
     case ALL_PRODUCT_FAIL:
-    case SEARCH_PRODUCT_FAIL:
     case ADMIN_PRODUCT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const productsSearchReducer = (
+  state = { productSearch: [] },
+  action
+) => {
+  switch (action.type) {
+    case SEARCH_PRODUCT_REQUEST:
+      return {
+        loading: true,
+        productSearch: [],
+      };
+    case SEARCH_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        productSearch: action.payload.product,
+      };
+
+    case SEARCH_PRODUCT_FAIL:
       return {
         loading: false,
         error: action.payload,
