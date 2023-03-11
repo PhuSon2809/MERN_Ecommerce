@@ -41,12 +41,11 @@ const OrderList = () => {
   }, [dispatch, navigate, error, alert, deleteError, isDeleted])
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
+    { field: "id", headerName: "Order ID", flex: 1.5 },
     {
       field: "status",
       headerName: "Status",
-      minWidth: 150,
-      flex: 0.5,
+      flex: 1,
       cellClassName: (params) => {
         return params.getValue(params.id, "status") === "Delivered"
         ? "greenColor"
@@ -57,22 +56,19 @@ const OrderList = () => {
       field: "itemQty",
       headerName: "Item Qty",
       type: "number",
-      minWidth: 150,
-      flex: 0.3,
+      flex: 1,
     },
     {
       field: "amount",
       headerName: "Amount",
       type: "number",
-      minWidth: 270,
-      flex: 0.5,
+      flex: 1,
     },
 
     {
       field: "actions",
-      flex: 0.3,
+      flex: 1,
       headerName: "Actions",
-      minWidth: 150,
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -107,7 +103,7 @@ const OrderList = () => {
       <div className="dashboard">
         <SideBar />
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL PRODUCTS</h1>
+          <h1 id="productListHeading">ALL ORDERS</h1>
 
           <DataGrid
             rows={rows}

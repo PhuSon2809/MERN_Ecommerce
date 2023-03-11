@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./App.css";
 import { Provider } from "react-redux";
@@ -19,9 +19,11 @@ const options = {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <AlertProvider template={AlertTemplate} {...options}>
-      <App />
-    </AlertProvider>
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+      </AlertProvider>
+    </Provider>
+  </BrowserRouter>
 );

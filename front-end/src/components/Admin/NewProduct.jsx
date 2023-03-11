@@ -21,7 +21,6 @@ const NewProduct = () => {
 
   const { loading, error, success } = useSelector((state) => state.newProduct);
 
-
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
@@ -98,48 +97,54 @@ const NewProduct = () => {
         <SideBar />
         <div className="newProductContainer">
           <form
-            className="createProductForm"
+            className="update-product-form"
             encType="multipart/form-data"
             onSubmit={createProductSubmitHandler}
           >
-            <h1>Create Product</h1>
+            <h1 className="title">Add new product</h1>
 
-            <div>
-              <SpellcheckIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Name</span>
               <input
                 type="text"
                 placeholder="Product Name"
+                className="form-control col-sm-9"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div>
-              <AttachMoneyIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Price</span>
               <input
                 type="number"
                 placeholder="Price"
+                className="form-control col-sm-9"
                 required
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
 
-            <div>
-              <DescriptionIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Description</span>
 
               <textarea
                 placeholder="Product Description"
                 value={description}
+                className="form-control col-sm-9"
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
                 rows="1"
               ></textarea>
             </div>
 
-            <div>
-              <AccountTreeIcon />
-              <select onChange={(e) => setCategory(e.target.value)}>
-                <option value="">Choose Category</option>
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Category</span>
+              <select
+                className="form-control col-sm-9"
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="">Category</option>
                 {categories.map((cate) => (
                   <option key={cate} value={cate}>
                     {cate}
@@ -148,39 +153,46 @@ const NewProduct = () => {
               </select>
             </div>
 
-            <div>
-              <StorageIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Stock</span>
               <input
                 type="number"
+                className="form-control col-sm-9"
                 placeholder="Stock"
                 required
                 onChange={(e) => setStock(e.target.value)}
               />
             </div>
 
-            <div id="createProductFormFile">
+            <div
+              id="createProductFormFile"
+              className="update-product-control-file"
+            >
               <input
                 type="file"
                 name="avatar"
                 accept="image/*"
+                className="form-control"
                 onChange={createProductImagesChange}
                 multiple
               />
             </div>
 
-            <div id="createProductFormImage">
+            <div id="createProductFormImage" className="product-update-img">
               {imagesPreview.map((image, index) => (
                 <img key={index} src={image} alt="Product Preview" />
               ))}
             </div>
 
-            <Button
-              id="createProductBtn"
-              type="submit"
-              disabled={loading ? true : false}
-            >
-              Create
-            </Button>
+            <div className="update-btn">
+              <Button
+                id="createProductBtn"
+                type="submit"
+                disabled={loading ? true : false}
+              >
+                Create
+              </Button>
+            </div>
           </form>
         </div>
       </div>

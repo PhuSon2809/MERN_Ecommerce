@@ -13,7 +13,7 @@ function ProductItem({ product }) {
   };
 
   return (
-    <Link to={`/product/${product.id}`}>
+    <Link to={`/product/${product._id}`}>
       <BoxCard className="">
         <Box className sx={{ position: "relative", mb: 1 }}>
           <img src={product.images[0].url} alt={product.name} width="100%" />

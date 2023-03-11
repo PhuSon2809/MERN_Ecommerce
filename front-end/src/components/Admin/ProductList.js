@@ -43,7 +43,7 @@ const ProductList = () => {
   }, [dispatch, navigate, error, alert, deleteError, isDeleted])
 
   const columns = [
-    { field: "id", headerName: "Order ID", flex: 1 },
+    { field: "id", headerName: "Order ID", flex: 1.5 },
     {
       field: "name",
       headerName: "Name",
@@ -65,7 +65,7 @@ const ProductList = () => {
 
     {
       field: "actions",
-      flex: 1,
+      flex: 0.8,
       headerName: "Actions",
       type: "number",
       sortable: false,
@@ -73,7 +73,7 @@ const ProductList = () => {
         return (
           <Fragment>
             <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
-              <EditIcon />
+              <EditIcon sx={{color: "#fff !important"}} />
             </Link>
 
             <Button onClick={() => deleteProductHandler(params.getValue(params.id, "id"))}>

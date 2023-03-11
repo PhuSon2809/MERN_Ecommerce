@@ -124,49 +124,52 @@ const UpdateProduct = () => {
         <SideBar />
         <div className="newProductContainer">
           <form
-            className="createProductForm"
             encType="multipart/form-data"
+            className="update-product-form"
             onSubmit={updateProductSubmitHandler}
           >
-            <h1>Create Product</h1>
+            <h1 className="title">Update Product</h1>
 
-            <div>
-              <SpellcheckIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Name</span>
               <input
                 type="text"
                 placeholder="Product Name"
                 required
+                className="form-control col-sm-9"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div>
-              <AttachMoneyIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Price</span>
               <input
                 type="number"
                 placeholder="Price"
                 required
+                className="form-control col-sm-9"
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
               />
             </div>
 
-            <div>
-              <DescriptionIcon />
-
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Description</span>
               <textarea
                 placeholder="Product Description"
                 value={description}
+                className="form-control col-sm-9"
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
                 rows="1"
               ></textarea>
             </div>
 
-            <div>
-              <AccountTreeIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Category</span>
               <select
                 value={category}
+                className="form-control col-sm-9"
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">Choose Category</option>
@@ -178,10 +181,12 @@ const UpdateProduct = () => {
               </select>
             </div>
 
-            <div>
-              <StorageIcon />
+            <div className="update-product-control">
+              <span className="update-product-label col-sm-3">Stock</span>
+
               <input
                 type="number"
+                className="form-control col-sm-9"
                 placeholder="Stock"
                 required
                 onChange={(e) => setStock(e.target.value)}
@@ -189,28 +194,40 @@ const UpdateProduct = () => {
               />
             </div>
 
-            <div id="createProductFormFile">
+            <div
+              id="createProductFormFile"
+              className="update-product-control-file"
+            >
               <input
                 type="file"
                 name="avatar"
+                className="form-control"
                 accept="image/*"
                 onChange={updateProductImagesChange}
                 multiple
               />
             </div>
 
-            <div id="createProductFormImage">
-              {oldImages && oldImages.map((image, index) => (
-                <img key={index} src={image.url} alt="Old Product Preview" />
-              ))}
+            <div className="product-update-img-container">
+              <div id="createProductFormImage" className="product-update-img">
+                {oldImages &&
+                  oldImages.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image.url}
+                      alt="Old Product Preview"
+                    />
+                  ))}
+              </div> 
+
+              <div id="createProductFormImage" className={`${imagesPreview? "product-update-img" : ""}`}>
+                {imagesPreview.map((image, index) => (
+                  <img key={index} src={image} alt="Product Preview" />
+                ))}
+              </div>
             </div>
 
-            <div id="createProductFormImage">
-              {imagesPreview.map((image, index) => (
-                <img key={index} src={image} alt="Product Preview" />
-              ))}
-            </div>
-
+            <div className="update-btn">
             <Button
               id="createProductBtn"
               type="submit"
@@ -218,6 +235,7 @@ const UpdateProduct = () => {
             >
               Update
             </Button>
+            </div>
           </form>
         </div>
       </div>

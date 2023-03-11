@@ -11,7 +11,6 @@ import { useAlert } from "react-alert";
 import { getAdminProduct } from "../../actions/productAction";
 import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
-import { getAdminPet } from "../../actions/petAction";
 import MetaData from "../layout/MetaData";
 import Welcome from "./Welcome/Welcome";
 import Tag from "./Tag/Tag";
@@ -22,7 +21,6 @@ const Dashboard = () => {
   const { products } = useSelector((state) => state.products);
   const { orders } = useSelector((state) => state.allOrders);
   const { users } = useSelector((state) => state.allUsers);
-  const { pets } = useSelector((state) => state.pets);
 
   let outOfStock = 0;
 
@@ -43,7 +41,6 @@ const Dashboard = () => {
     dispatch(getAdminProduct());
     dispatch(getAllOrders());
     dispatch(getAllUsers());
-    dispatch(getAdminPet());
   }, [dispatch]);
 
   const lineState = {
@@ -52,7 +49,7 @@ const Dashboard = () => {
       {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
-        hoverBackgroundColor: ["rgb(197, 72, 49)"],
+        hoverBackgroundColor: ["rgb(209, 206, 17)"],
         data: [0, totalAmount],
       },
     ],
@@ -62,8 +59,8 @@ const Dashboard = () => {
     labels: ["Out of Stock", "In Stock"],
     datasets: [
       {
-        backgroundColor: ["#00A6B4", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000", "#35014F"],
+        backgroundColor: ["#ff0000", "#0d6efd"],
+        hoverBackgroundColor: ["#f73e3e", "#3e86f3"],
         data: [outOfStock, products.length - outOfStock],
       },
     ],
@@ -84,23 +81,25 @@ const Dashboard = () => {
               <Link to="/admin/orders">
                 <Tag label={"Orders"} color={'warning'} value={orders && orders.length} />
               </Link>
+
               <Link to="/admin/users">
                 <Tag label={"Users"} color={'info'} value={users && users.length} />
               </Link>
               <a>
               <Tag label={'Total Amount'} color={'danger'} value={totalAmount}/>
               </a>
+
             </div>
           </div>
 
           <div className="dashboard-chart">
             <div className="doughnutChart">
-              <p style={{marginBottom: '60px', marginTop: '20px'}}>Chart something</p>
+              <p style={{marginBottom: '40px', marginTop: '20px'}}>Stock chart</p>
               <Doughnut data={doughnutState} />
             </div>
 
             <div className="lineChart">
-            <p>Chart something</p>
+            <p>Amount Chart</p>
               <Line data={lineState} />
             </div>
           </div>

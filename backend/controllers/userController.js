@@ -5,15 +5,17 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
+const avatar =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFA0PzwLOOR4smmmfHG6N1jNwOVsrh2V4oSQ&usqp=CAU";
 
 //Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: 'avatars',
+  const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+    folder: "avatars",
     width: 150,
-    crop: 'scale',
+    crop: "scale",
   });
-  
+
   const { name, email, password } = req.body;
 
   const user = await User.create({
@@ -24,7 +26,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
     },
-    
   });
 
   sendToken(user, 201, res);
@@ -80,16 +81,13 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/password/reset/${resetToken}`;
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
   const message = `Your password reset token is:- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email
   then, please ignore it `;
 
   try {
-    await sendEmail({
-      email: user.email,
+    await sendEmail(user.email, {
       subject: `Password Recovery`,
       message,
     });
@@ -189,15 +187,15 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     await cloudinary.v2.uploader.destroy(imageId);
 
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-      folder: 'avatars',
+      folder: "avatars",
       width: 150,
-      crop: 'scale',
+      crop: "scale",
     });
 
     newUserData.avatar = {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
-    }
+    };
   }
 
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
@@ -246,7 +244,6 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
     role: req.body.role,
   };
 
- 
   await User.findByIdAndUpdate(req.params.id, newUserData, {
     new: true,
     runValidators: true,
@@ -281,7 +278,7 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 //Delete profile
-exports.deleteMyProfile = catchAsyncErrors (async (req, res, next) => {
+exports.deleteMyProfile = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user._id);
   const posts = user.posts;
 
@@ -300,8 +297,6 @@ exports.deleteMyProfile = catchAsyncErrors (async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: 'Profile Deleted!'
+    message: "Profile Deleted!",
   });
-})
-
-
+});

@@ -15,7 +15,7 @@ import {
   IconWrapper,
   InputWrapper,
   StyledInputBase,
-} from "./LoginSignupStyle";
+} from "./userStyle";
 
 function Login() {
   const alert = useAlert();
@@ -107,7 +107,7 @@ function Login() {
             }}
           >
             <Link
-              to="/register"
+              to="/password/forgot"
               style={{
                 textDecoration: "underline",
                 color: "#000",
@@ -124,7 +124,11 @@ function Login() {
           Don’t have an account?
           <Link
             to="/register"
-            style={{ textDecoration: "underline", color: "#000" }}
+            style={{
+              textDecoration: "underline",
+              color: "#000",
+              marginLeft: "5px",
+            }}
           >
             Sign up
           </Link>

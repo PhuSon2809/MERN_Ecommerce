@@ -45,27 +45,24 @@ const UserList = () => {
   }, [dispatch, navigate, error, alert, deleteError, isDeleted, message]);
 
   const columns = [
-    { field: "id", headerName: "User ID", minWidth: 200, flex: 0.8 },
+    { field: "id", headerName: "User ID",  flex: 1.5 },
     {
       field: "email",
       headerName: "Email",
-      minWidth: 200,
       flex: 1,
     },
     {
       field: "name",
       headerName: "Name",
       type: "number",
-      minWidth: 150,
-      flex: 0.5,
+      flex: 1,
     },
 
     {
       field: "role",
       headerName: "Role",
       type: "number",
-      minWidth: 150,
-      flex: 0.3,
+      flex: 1,
       cellClassName: (params) => {
         return params.getValue(params.id, "role") === "admin"
           ? "greenColor"
@@ -75,9 +72,8 @@ const UserList = () => {
 
     {
       field: "actions",
-      flex: 0.3,
+      flex: 1,
       headerName: "Actions",
-      minWidth: 150,
       type: "number",
       sortable: false,
       renderCell: (params) => {

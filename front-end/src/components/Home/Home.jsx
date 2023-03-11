@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
-import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, Grid, IconButton, Typography } from "@mui/material";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Autoplay } from "swiper";
@@ -46,7 +46,9 @@ const Home = () => {
   return (
     <Fragment>
       {loading ? (
-        <Loader />
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
       ) : (
         <Fragment>
           <MetaData title="Electronic Lyte" />

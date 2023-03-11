@@ -33,10 +33,10 @@ const Sidebar = () => {
           >
             <TreeItem nodeId="1" label="Products">
               <Link to="/admin/products">
-                <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
+                <TreeItem nodeId="2" label="List" icon={<PostAddIcon />} />
               </Link>
               <Link to="/admin/product">
-                <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
+                <TreeItem nodeId="3" label="Add new" icon={<AddIcon />} />
               </Link>
             </TreeItem>
           </TreeView>
@@ -58,14 +58,14 @@ const Sidebar = () => {
           Users
         </li>
       </Link>
-      <Link to="/admin/reviews">
+      {/* <Link to="/admin/reviews">
         <li className="dashboard-item">
           <span className="dashboard-item__icon">
             <RateReviewIcon />
           </span>
           Reviews
         </li>
-      </Link>
+      </Link> */}
     </ul>
   );
 };

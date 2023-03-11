@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
   text-rendering: optimizeSpeed;
   transition: 0.2s ease-in-out;
 }
@@ -31,20 +31,8 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* input[type="number"] {
-  -moz-appearance: textfield;
-} */
-
-.greenColor {
-  color: green !important;
-}
-
-.redColor {
-  color: red !important;
-}
-
-.organeColor {
-  color: orange !important;
+.transition{
+  transition: all 0.3s ease-in-out;
 }
 
 .swiper {
