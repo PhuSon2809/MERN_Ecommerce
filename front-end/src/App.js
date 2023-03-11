@@ -106,11 +106,11 @@ function App() {
           path="/success"
           element={<ProtectedRoute component={OrderSuccess} />}
         />
-        {/* <Route
+        <Route
           exact
           path="/orders"
           element={<ProtectedRoute component={MyOrders} />}
-        /> */}
+        />
         <Route
           exact
           path="/admin/dashboard"
@@ -172,8 +172,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/cart" element={<Cart />} />
-        <Route exact path="/orders" element={<MyOrders />} />
-        <Route exact path="/order/:id" element={<OrderDetails />} />
+        {/* <Route exact path="/orders" element={<MyOrders />} /> */}
+        {/* <Route exact path="/order/:id" element={<OrderDetails />} /> */}
       </Routes>
       <Routes>
         <Route

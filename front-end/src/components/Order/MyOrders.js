@@ -19,12 +19,28 @@ const MyOrders = () => {
   // const { user } = useSelector((state) => state.user);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 250 },
-    // { field: "name", headerName: "Order Name", minWidth: 300 },
+    { field: "id", headerName: "Order ID", maxWidth: 200, flex: 0.2 },
+    { field: "userName", headerName: "User Name", maxWidth: 250, flex: 0.2 },
+
+    {
+      field: "itemQty",
+      headerName: "Item Qty",
+      type: "number",
+      maxWidth: 203,
+      flex: 0.2,
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      type: "number",
+      maxWidth: 203,
+      flex: 0.2,
+    },
     {
       field: "status",
       headerName: "Status",
-      minWidth: 250,
+      maxWidth: 200,
+      flex: 0.2,
       cellClassName: (params) => {
         return params.getValue(params.id, "status") === "Delivered"
           ? "greenColor"
@@ -32,21 +48,10 @@ const MyOrders = () => {
       },
     },
     {
-      field: "itemQty",
-      headerName: "Item Qty",
-      type: "number",
-      minWidth: 253 + 25,
-    },
-    {
-      field: "amount",
-      headerName: "Amount",
-      type: "number",
-      minWidth: 253 + 25,
-    },
-    {
       field: "actions",
       headerName: "Actions",
-      minWidth: 250,
+      maxWidth: 250,
+      flex: 0.2,
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -58,11 +63,21 @@ const MyOrders = () => {
       },
     },
   ];
-  const orderTest = [
-    { id: 1, status: "Delivered", itemQty: 10, amount: 5 },
-    { id: 2, status: "Delivered", itemQty: 10, amount: 2 },
-  ];
-  const rows = orderTest;
+  // const orderTest = [
+  //   { id: 1, userName: "abc", itemQty: 10, amount: 5, status: "Delivered" },
+  //   { id: 2, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 3, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 4, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 5, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 6, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 7, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 8, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 9, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 10, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  //   { id: 11, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
+  // ];
+  // const rows = orderTest;
+  const rows = [];
 
   orders &&
     orders.forEach((item, index) => {
@@ -71,8 +86,10 @@ const MyOrders = () => {
         id: item._id,
         status: item.orderStatus,
         amount: item.totalPrice,
+        user: item.user.name,
       });
     });
+  console.log(orders);
 
   useEffect(() => {
     if (error) {
