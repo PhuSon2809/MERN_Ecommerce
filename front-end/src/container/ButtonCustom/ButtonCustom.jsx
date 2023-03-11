@@ -3,7 +3,6 @@ import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 function ButtonCustom({ children, size, variant, onClick, color, width }) {
-  console.log(color);
   const ButtonCus = styled(Button)({
     background: "#ffd90c",
     textTransform: "capitalize",

@@ -1,8 +1,15 @@
-import React, { Fragment, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
-import { Box, CircularProgress, Container, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Typography
+} from "@mui/material";
+import React, { Fragment, useEffect } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { clearErrors, getProductRandom } from "../../actions/productAction";
@@ -25,7 +32,7 @@ import {
   ContentUser,
   DateTime,
   NameUser,
-  Title,
+  Title
 } from "./HomeStyle";
 
 const Home = () => {
@@ -46,9 +53,7 @@ const Home = () => {
   return (
     <Fragment>
       {loading ? (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
+        <Loader />
       ) : (
         <Fragment>
           <MetaData title="Electronic Lyte" />
@@ -93,12 +98,12 @@ const Home = () => {
                     src="https://cdn.shopify.com/s/files/1/0549/6851/6852/files/Banner-1.jpg?v=1647230535"
                     alt="PR"
                   />
-                  <Title>FEATURE PRODUCTS</Title>
+                  {/* <Title>FEATURE PRODUCTS</Title>
                   <BoxProduct>
                     {fetureProduct.map((item) => (
                       <FetureProduct key={item.id} product={item} />
                     ))}
-                  </BoxProduct>
+                  </BoxProduct> */}
                 </BoxPr>
               </Grid>
               <Grid item md={9} sx={{ pl: 3 }}>
@@ -131,15 +136,17 @@ const Home = () => {
                   <Grid container sx={{ mt: 5 }}>
                     {productsRandom &&
                       productsRandom.map((product) => (
-                        <Grid item md={4} key={product.id}>
+                        <Grid item md={4} key={product._id}>
                           <ProductItem product={product} />
                         </Grid>
                       ))}
                   </Grid>
                 </Box>
-                <ButtonCustom color="#000" width="100%">
-                  See More
-                </ButtonCustom>
+                <Link to="/products">
+                  <ButtonCustom color="#000" width="100%">
+                    See More
+                  </ButtonCustom>
+                </Link>
 
                 <Box sx={{ mt: 5 }}>
                   <Grid container>

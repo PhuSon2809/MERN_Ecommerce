@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://10.1.71.252:4000",
+  "proxy": "http://192.168.1.11:7000",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -14,6 +14,7 @@
     "@mui/material": "^5.9.2",
     "@stripe/react-stripe-js": "^1.9.0",
     "@stripe/stripe-js": "^1.32.0",
+    "@tippyjs/react": "^4.2.6",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "bootstrap-social": "^5.1.1",
@@ -21,6 +22,7 @@
     "country-state-city": "^3.0.1",
     "date-fns": "^2.29.1",
     "font-awesome": "^4.7.0",
+    "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
@@ -41,8 +43,10 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "sass": "^1.58.3",
     "swiper": "^9.1.0",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "yup": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

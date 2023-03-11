@@ -7,7 +7,7 @@ import { Container, IconButton, Typography } from "@mui/material";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearErrors, updatePassword } from "../../actions/userAction";
+import { clearErrors, logout, updatePassword } from "../../actions/userAction";
 import { UPDATE_PASSWORD_RESET } from "../../constants/userConstant";
 import ButtonCustom from "../../container/ButtonCustom/ButtonCustom";
 import Loader from "../layout/Loader/Loader";
@@ -50,7 +50,7 @@ const UpdatePassword = () => {
 
     if (isUpdated) {
       alert.success("Password Updated Successfully!");
-      navigate("/");
+      dispatch(logout());
       dispatch({
         type: UPDATE_PASSWORD_RESET,
       });

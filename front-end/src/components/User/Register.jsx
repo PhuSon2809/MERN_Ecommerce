@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BoltIcon from "@mui/icons-material/Bolt";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import { Container, IconButton, Typography } from "@mui/material";
@@ -67,7 +68,7 @@ function Register() {
               letterSpacing: "4px",
             }}
           >
-            Login
+            Register
           </Typography>
         </BoxLogo>
         <Typography>Welcome to Electronic Lyte!</Typography>
@@ -77,7 +78,7 @@ function Register() {
             <label style={{ fontWeight: "600" }}>Name</label>
             <InputWrapper>
               <IconWrapper>
-                <EmailOutlinedIcon sx={{ color: "#000" }} />
+                <AccountCircleIcon sx={{ color: "#000" }} />
               </IconWrapper>
               <StyledInputBase
                 fullWidth

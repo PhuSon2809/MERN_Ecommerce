@@ -12,12 +12,14 @@ export const BoxContent = styled(Box)({
 });
 
 export const TextName = styled(Typography)({
-    fontSize: "17px",
+  fontSize: "17px",
   textAlign: "left",
   fontWeight: "500",
+  color: "#000",
 });
 
 export const Text = styled(Typography)({
   textAlign: "left",
   fontWeight: "500",
+  color: "#000",
 });

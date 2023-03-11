@@ -16,7 +16,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,18 +29,15 @@ import {
   BoxMenu,
   ItemAction,
   MenuItemCustom,
-  Search,
-  SearchIconWrapper,
-  StyledInputBase,
-  ToolbarBox
+  // Search,
+  // SearchIconWrapper,
+  // StyledInputBase,
+  ToolbarBox,
 } from "./HeaderStyle";
+import Search from "../../../container/Search/Search";
 
 const pages = [
   { title: "Home", link: "/" },
-  {
-    title: "Category",
-    link: "/categories",
-  },
   {
     title: "Product",
     link: "/products",
@@ -130,23 +127,20 @@ function Header() {
               href="/"
               sx={{
                 color: "#000",
-                fontWeight: 800,
-                letterSpacing: "4px",
+                fontWeight: "800 !important",
+                letterSpacing: "4px !important",
+                "&:hover": {
+                  color: "#000",
+                },
               }}
             >
               Elyte
             </Typography>
           </BoxLogo>
 
-          <Search sx={{ display: { xs: "none", md: "flex" } }}>
-            <SearchIconWrapper>
-              <SearchIcon sx={{ color: "#000" }} />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Search />
+          </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -187,7 +181,7 @@ function Header() {
           </Box>
 
           <BoxLogo sx={{ display: { xs: "flex", md: "none" } }}>
-            <BoltIcon sx={{ fontSize: "50px", color: "#ffd90c" }} />
+            <BoltIcon sx={{ fontSize: "50px !important", color: "#ffd90c" }} />
             <Typography
               variant="h4"
               noWrap
@@ -195,8 +189,8 @@ function Header() {
               href="/"
               sx={{
                 color: "#000",
-                fontWeight: 800,
-                letterSpacing: "4px",
+                fontWeight: "800 !important",
+                letterSpacing: "4px !important",
               }}
             >
               Elyte
@@ -229,15 +223,7 @@ function Header() {
               }}
             >
               <MenuItem sx={{ p: 0 }}>
-                <Search>
-                  <SearchIconWrapper>
-                    <SearchIcon sx={{ color: "#000" }} />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ "aria-label": "search" }}
-                  />
-                </Search>
+                <Search />
               </MenuItem>
             </Menu>
             <IconButton onClick={() => navigate("/cart")}>

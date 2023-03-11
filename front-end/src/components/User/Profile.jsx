@@ -1,26 +1,29 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
+import { useModal } from "../../hooks/useModal";
 import {
   BoxAction,
   BoxAvatar,
   BoxInfor,
+  BoxInforDetail,
   BoxLeft,
   ItemAction,
+  ItemInfor,
+  Title,
 } from "./userStyle";
+import ModalUpdateProfile from "./ModalUpdateProfile";
+import { UPDATE_PROFILE_RESET } from "../../constants/userConstant";
+import { clearErrors, loadUser } from "../../actions/userAction";
+import { useAlert } from "react-alert";
 
 const options = [
-  {
-    icon: <BorderColorIcon sx={{ color: "#ffd90c" }} />,
-    name: "Edit profile",
-    to: "",
-  },
   {
     icon: <ChangeCircleIcon sx={{ color: "#ffd90c" }} />,
     name: "Change password",
@@ -34,8 +37,14 @@ const options = [
 ];
 
 const Profile = () => {
-  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  const alert = useAlert();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { toogleOpen, isOpen } = useModal();
+  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
+  const { error, isUpdated, loading: upadteLoading } = useSelector((state) => state.profile);
+
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated === false) {
@@ -43,9 +52,26 @@ const Profile = () => {
     }
   }, [navigate, isAuthenticated]);
 
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
+    if (isUpdated) {
+      alert.success("Profile Updated Successfully!");
+      dispatch(loadUser());
+      // navigate("/account");
+   
+      dispatch({
+        type: UPDATE_PROFILE_RESET,
+      });
+    }
+  }, [dispatch, error, alert, navigate, user, isUpdated]);
+
   return (
     <Fragment>
-      {loading ? (
+      {upadteLoading && loading ? (
         <Loader />
       ) : (
         <Container>
@@ -69,19 +95,30 @@ const Profile = () => {
                   </Box>
                 </BoxAvatar>
                 <BoxAction>
+                  <ItemAction
+                    onClick={toogleOpen}
+                    className="transition"
+                    textAlign="center"
+                  >
+                    <BorderColorIcon sx={{ color: "#ffd90c" }} />
+                    Edit profile
+                  </ItemAction>
                   {options.map((option, index) => (
-                    <Link
-                      className="transition"
-                      key={index}
-                      to={option.to}
-                      width="100%"
-                    >
+                    <Link key={index} to={option.to} width="100%">
                       <ItemAction className="transition" textAlign="center">
                         {option.icon}
                         {option.name}
                       </ItemAction>
                     </Link>
                   ))}
+
+                  {isOpen && (
+                    <ModalUpdateProfile
+                      toogleOpen={toogleOpen}
+                      isOpen={isOpen}
+                      setReload={setReload}
+                    />
+                  )}
                 </BoxAction>
               </BoxLeft>
             </Grid>
@@ -89,7 +126,15 @@ const Profile = () => {
               <BoxInfor>
                 <Grid container>
                   <Grid item md={5}>
-                    <Box width="100%">
+                    <Box
+                      width="100%"
+                      height="100%"
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
                       <img
                         src={user.avatar?.url ? user.avatar.url : ""}
                         alt={user.name}
@@ -98,20 +143,28 @@ const Profile = () => {
                     </Box>
                   </Grid>
                   <Grid item md={7}>
-                    <div>
-                      <div>
-                        <h4>Full Name</h4>
-                        <p>{user.name}</p>
-                      </div>
-                      <div>
-                        <h4>Email</h4>
-                        <p>{user.email}</p>
-                      </div>
-                      <div>
-                        <h4>Joined On</h4>
-                        <p>{String(user.createdAt).substring(0, 10)}</p>
-                      </div>
-                    </div>
+                    <BoxInforDetail>
+                      <ItemInfor>
+                        <Title>Name:</Title>
+                        <Typography>{user.name}</Typography>
+                      </ItemInfor>
+                      <ItemInfor>
+                        <Title>Email:</Title>
+                        <Typography>{user.email}</Typography>
+                      </ItemInfor>
+                      <ItemInfor>
+                        <Title>Address:</Title>
+                        <Typography>
+                          {user.address ? user.address : "..."}
+                        </Typography>
+                      </ItemInfor>
+                      <ItemInfor>
+                        <Title>Phone:</Title>
+                        <Typography>
+                          {user.phone ? user.phone : "..."}
+                        </Typography>
+                      </ItemInfor>
+                    </BoxInforDetail>
                   </Grid>
                 </Grid>
               </BoxInfor>

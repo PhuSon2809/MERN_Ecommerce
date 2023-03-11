@@ -19,11 +19,6 @@ import { NavLink } from "react-router-dom";
 const pages = [
   { id: "1", title: "Home", link: "/" },
   {
-    id: "2",
-    title: "Category",
-    link: "/categories",
-  },
-  {
     id: "3",
     title: "Product",
     link: "/products",
@@ -39,7 +34,9 @@ function Footer() {
   return (
     <FooterCus>
       <BoxLogo>
-        <BoltIcon sx={{ fontSize: "50px", color: "#ffd90c" }} />
+        <BoltIcon
+          sx={{ fontSize: "50px !important", color: "#ffd90c !important" }}
+        />
         <Typography
           variant="h4"
           noWrap
@@ -47,8 +44,8 @@ function Footer() {
           href="/"
           sx={{
             color: "#fff",
-            fontWeight: 800,
-            letterSpacing: "4px",
+            fontWeight: "800 !important",
+            letterSpacing: "4px !important",
             "&:hover": {
               color: "#fff",
             },
@@ -64,7 +61,7 @@ function Footer() {
       >
         {pages.map((page) => (
           <NavLink key={page.id} to={page.link}>
-            <MenuItemFooter className="transition">{page.title}</MenuItemFooter>
+            <MenuItemFooter>{page.title}</MenuItemFooter>
           </NavLink>
         ))}
       </BoxMenu>

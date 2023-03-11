@@ -42,7 +42,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // [GET] Get All Product
 exports.getAllProduct = catchAsyncErrors(async (req, res, next) => {
-  const resultPerPage = 8;
+  const resultPerPage = 9;
   const productsCount = await Product.countDocuments();
 
   const apiFeature = new ApiFeatures(Product.find(), req.query)
@@ -66,6 +66,27 @@ exports.getAllProduct = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+exports.getAllProductSearch = catchAsyncErrors(async (req, res, next) => {
+  const productsCount = await Product.countDocuments();
+  console.log(req.query);
+  if (req.query.keyword !== "") {
+    const apiFeature = new ApiFeatures(Product.find(), req.query).search();
+
+    let product = await apiFeature.query;
+
+    let filteredProductsCount = product.length;
+
+    product = await apiFeature.query.clone();
+
+    res.status(200).json({
+      success: true,
+      product,
+      productsCount,
+      filteredProductsCount,
+    });
+  }
+});
+
 // Get all product (Admin)
 exports.getAdminProduct = catchAsyncErrors(async (req, res, next) => {
   const products = await Product.find();
@@ -78,7 +99,7 @@ exports.getAdminProduct = catchAsyncErrors(async (req, res, next) => {
 
 exports.getProductRandom = catchAsyncErrors(async (req, res, next) => {
   const apiFeature = new ApiFeatures(
-    Product.aggregate([{ $sample: { size: 8 } }, { $limit: 8 }]),
+    Product.aggregate([{ $sample: { size: 9 } }, { $limit: 9 }]),
     req.query
   );
 
@@ -135,10 +156,10 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
         public_id: result.public_id,
         url: result.secure_url,
       });
-    };
+    }
 
     req.body.images = imagesLink;
-  };
+  }
 
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -249,7 +270,7 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
     avg += rev.rating;
   });
 
-  let ratings  = 0;
+  let ratings = 0;
 
   if (reviews.length === 0) {
     ratings = 0;

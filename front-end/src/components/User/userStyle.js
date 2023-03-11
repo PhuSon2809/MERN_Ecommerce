@@ -1,4 +1,11 @@
-import { Box, FormControl, InputBase, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  DialogTitle,
+  FormControl,
+  InputBase,
+  Typography,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const BoxWrapper = styled(Box)({
@@ -63,7 +70,7 @@ export const BoxLeft = styled(Box)({
 
 export const BoxInfor = styled(Box)({
   width: "100%",
-  padding: "30px",
+  padding: "30px 30px 30px 0px",
   border: "2px solid #000",
   borderRadius: "8px",
   display: "flex",
@@ -90,12 +97,62 @@ export const ItemAction = styled(Typography)({
   width: "100%",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "flex-start",
   flexDirection: "row",
   gap: "8px",
   color: "#000",
   padding: "5px",
-  "&:hover":{
-    transform: "scale(1.05)"
-  }
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.05)",
+  },
+});
+
+export const BoxInforDetail = styled(Box)({
+  display: "flex",
+  alignItems: "flex-start",
+  flexDirection: "column",
+  gap: "20px",
+});
+
+export const ItemInfor = styled(Box)({
+  width: "100%",
+  display: "flex",
+  alignItems: "flex-start",
+  justifyContent: "space-between",
+  padding: "5px 10px",
+  background: "#ffd90c",
+});
+
+export const Title = styled(Typography)({
+  fontSize: "17px",
+  fontWeight: "600",
+});
+
+export const CloseButton = styled(Button)({
+  marginTop: "10px",
+  textTransform: "capitalize",
+  fontWeight: "bold",
+  height: "fit-content",
+});
+
+export const SubmitButton = styled(Button)({
+  textTransform: "capitalize",
+  fontWeight: "bold",
+  color: "#000",
+  height: "fit-content",
+  backgroundColor: "#ffd90c",
+  "&:hover": {
+    backgroundColor: "#ffd90c",
+  },
+});
+
+export const TextTitle = styled(DialogTitle)({
+  fontSize: "2rem",
+  fontWeight: "600",
+  letterSpacing: "2px",
+  textTransform: "capitalize",
+  color: "#000",
+  textDecoration: "underline",
+  textDecorationColor: "#ffd90c",
 });

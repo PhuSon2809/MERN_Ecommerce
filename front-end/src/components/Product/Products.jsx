@@ -1,34 +1,23 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./Products.css";
-import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProduct } from "../../actions/productAction";
-import Loader from "../layout/Loader/Loader";
-import ProductsList from "./ProductsList";
+import { useDispatch, useSelector } from "react-redux";
 // import Pagination from "react-js-pagination";
-import { useParams } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import Slider from "@material-ui/core/Slider";
+import { Container, Grid, Pagination, Slider, Stack } from "@mui/material";
 import { useAlert } from "react-alert";
+import { useParams } from "react-router-dom";
+import { clearErrors, getProduct } from "../../actions/productAction";
+import { CategoryData } from "../../assets/data/CategoryData";
+import ProductItem from "../../container/ProductItem/ProductItem";
+import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
-import { Stack, Pagination } from "@mui/material";
-
-const categories = [
-  "Food",
-  "Treat",
-  "Toy",
-  "Collar",
-  "Leash",
-  "Cage",
-  "Muzzle",
-  "Backpack",
-];
+import { BoxCategory, CategoryItem, NameTag } from "./ProductStyle";
 
 const Products = () => {
+  const alert = useAlert();
   const dispatch = useDispatch();
 
-  const alert = useAlert();
-
   const [currentPage, setCurrentPage] = useState(1);
+  console.log(currentPage);
   const [price, setPrice] = useState([0, 3000000]);
   const priceRanges = [
     { label: "Less than 10,000", value: [0, 10000] },
@@ -58,6 +47,13 @@ const Products = () => {
     setPrice(newPrice);
   };
 
+  // const handlePageChange = (e, page) => {
+  //   setFilters((prevFilters) => ({
+  //     ...prevFilters,
+  //     pageIndex: page,
+  //   }));
+  // };
+
   const handleChangePrice = (e) => {
     const value = e.target.value;
     const [minPrice, maxPrice] = value.split(",").map(Number);
@@ -82,77 +78,68 @@ const Products = () => {
   }, [dispatch, keyword, currentPage, price, category, rating, alert, error]);
 
   return (
-    <Fragment>
+    <Container sx={{ mt: 10, mb: 10 }}>
       {loading ? (
         <Loader />
       ) : (
         <Fragment>
           <MetaData title="Products" />
-          <h2 className="productsHeading">Products</h2>
-          <div className="products">
-            {products &&
-              products.map((product) => (
-                <ProductsList key={product._id} product={product} />
-              ))}
-          </div>
-
-          <div className="filterBox">
-            <Typography>Price</Typography>
-            {/* <Slider
-                value={price}
-                onChange={priceHandler}
-                valueLabelDisplay="auto"
-                aria-labelledby="range-slider"
-                min={0}
-                max={3000000}
-              /> */}
-            <ul className="categoryBox" style={{ listStyleType: "none" }}>
-              {priceRanges.map((range) => (
-                <li key={range.label}>
-                  <label>
-                    <input
-                      type="radio"
-                      value={range.value}
-                      onChange={handleChangePrice}
+          <Grid container>
+            <Grid item md={3}>
+              <BoxCategory>
+                <NameTag>Categories</NameTag>
+                {CategoryData.map((category) => (
+                  <CategoryItem
+                    key={category.id}
+                    className="transition"
+                    onClick={() => setCategory(category.name)}
+                  >
+                    <img
+                      src={category.image}
+                      alt={category.name}
+                      width="35px"
+                      height="35px"
                     />
-                    {range.label}
-                  </label>
-                </li>
-              ))}
-            </ul>
-            <Typography>Categories</Typography>
-            <ul className="categoryBox">
-              {categories.map((category) => (
-                <li
-                  className="category-link"
-                  key={category}
-                  onClick={() => setCategory(category)}
-                >
-                  {category}
-                </li>
-              ))}
-            </ul>
+                    <Typography>{category.name}</Typography>
+                  </CategoryItem>
+                ))}
+              </BoxCategory>
+              <BoxCategory sx={{ mt: 5 }}>
+                <NameTag>Price</NameTag>
+                <Slider
+                  value={price}
+                  onChange={priceHandler}
+                  aria-label="Default"
+                  valueLabelDisplay="auto"
+                  min={0}
+                  max={3000000}
+                  sx={{ color: "#000", width: "85%", mr: "auto", ml: "auto" }}
+                />
+              </BoxCategory>
+            </Grid>
+            <Grid item md={9}>
+              <Grid container sx={{ pl: 5 }}>
+                {products &&
+                  products.map((product) => (
+                    <Grid key={product._id} item md={4}>
+                      <ProductItem product={product} />
+                    </Grid>
+                  ))}
 
-            <fieldset>
-              <Typography component="legend">Ratings Above</Typography>
-              <Slider
-                value={rating}
-                onChange={(e, newRating) => {
-                  setRating(newRating);
-                }}
-                aria-labelledby="continuous-slider"
-                min={0}
-                max={5}
-                valueLabelDisplay="auto"
-              />
-            </fieldset>
-          </div>
+                <Stack spacing={2} sx={{ mr: "auto", ml: "auto" }}>
+                  <Pagination
+                    count={Math.ceil(productsCount / resultPerPage)}
+                    page={currentPage}
+                    onChange={setCurrentPageNo}
+                    variant="outlined"
+                    color="secondary"
+                  />
+                </Stack>
+              </Grid>
+            </Grid>
+          </Grid>
 
-          <Stack spacing={2}>
-            <Pagination count={10} variant="outlined" color="secondary" />
-          </Stack>
-
-          {resultPerPage < count && (
+          {/* {resultPerPage < count && (
             <div className="paginationBox">
               <Pagination
                 activePage={currentPage}
@@ -169,10 +156,10 @@ const Products = () => {
                 activeLinkClass="pageLinkActive"
               />
             </div>
-          )}
+          )} */}
         </Fragment>
       )}
-    </Fragment>
+    </Container>
   );
 };
 

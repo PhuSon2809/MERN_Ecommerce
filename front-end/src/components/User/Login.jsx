@@ -5,7 +5,7 @@ import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import { Container, IconButton, Typography } from "@mui/material";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { clearErrors, login } from "../../actions/userAction";
 import ButtonCustom from "../../container/ButtonCustom/ButtonCustom";
 import {
@@ -21,6 +21,7 @@ function Login() {
   const alert = useAlert();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -33,6 +34,8 @@ function Login() {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
   };
+  
+  const redirect = location.search ? location.search.split("=")[1] : "/account";
 
   useEffect(() => {
     if (error) {
@@ -41,9 +44,9 @@ function Login() {
     }
 
     if (isAuthenticated) {
-      navigate("/");
+      navigate(redirect);
     }
-  }, [dispatch, navigate, error, alert, isAuthenticated]);
+  }, [dispatch, navigate, error, alert, isAuthenticated, redirect]);
 
   return (
     <Container sx={{ minHeight: "60vh" }}>

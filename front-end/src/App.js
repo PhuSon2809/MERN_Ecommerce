@@ -3,15 +3,14 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import WebFont from "webfontloader";
 import { loadUser } from "./actions/userAction";
-import "./App.css";
+import "./App.scss";
 import Home from "./components/Home/Home";
 import Loader from "./components/layout/Loader/Loader";
 import ProductDetails from "./components/Product/ProductDetails";
 import Products from "./components/Product/Products";
-import Search from "./components/Product/Search";
 import store from "./store";
 import Dashboard from "./components/Admin/Dashboard";
 import NewProduct from "./components/Admin/NewProduct";
@@ -36,7 +35,6 @@ import ProtectedRoute from "./components/Route/ProtectedRoute";
 import Profile from "./components/User/Profile";
 import ResetPassword from "./components/User/ResetPassword";
 import UpdatePassword from "./components/User/UpdatePassword";
-import UpdateProfile from "./components/User/UpdateProfile";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import ForgotPassword from "./components/User/ForgotPassword";
@@ -53,11 +51,11 @@ function App() {
   }
 
   useEffect(() => {
-    // WebFont.load({
-    //   google: {
-    //     families: ["Roboto", "Droids San", "Chilanka"],
-    //   },
-    // });
+    WebFont.load({
+      google: {
+        families: ["Roboto", "Droids San", "Chilanka"],
+      },
+    });
 
     store.dispatch(loadUser());
 
@@ -85,12 +83,6 @@ function App() {
           path="/account"
           element={<ProtectedRoute component={Profile} />}
         />
-        <Route
-          exact
-          path="/me/update"
-          element={<ProtectedRoute component={UpdateProfile} />}
-        />
-
         <Route
           exact
           path="/password/update"
@@ -168,7 +160,6 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
-        <Route path="/search" element={<Search />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/cart" element={<Cart />} />

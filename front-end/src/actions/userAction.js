@@ -102,6 +102,7 @@ export const logout = () => async (dispatch) => {
 
 // Update Profile
 export const updateProfile = (userData) => async (dispatch) => {
+  console.log(userData);
   try {
     dispatch({ type: UPDATE_PROFILE_REQUEST });
 
@@ -183,7 +184,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 // get All User (Admin)
 export const getAllUsers = () => async (dispatch) => {
   try {
-    dispatch({ type: ALL_USERS_REQUEST })
+    dispatch({ type: ALL_USERS_REQUEST });
     const { data } = await axios.get(`/api/v1/admin/users`);
 
     dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
@@ -195,7 +196,7 @@ export const getAllUsers = () => async (dispatch) => {
 // get All User Details (Admin)
 export const getUserDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: USER_DETAILS_REQUEST })
+    dispatch({ type: USER_DETAILS_REQUEST });
     const { data } = await axios.get(`/api/v1/admin/user/${id}`);
 
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
@@ -231,9 +232,7 @@ export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST });
 
-    const { data } = await axios.delete(
-      `/api/v1/admin/user/${id}`,
-    );
+    const { data } = await axios.delete(`/api/v1/admin/user/${id}`);
 
     dispatch({ type: DELETE_USER_SUCCESS, payload: data });
   } catch (error) {
