@@ -33,6 +33,7 @@ export const newOrderReducer = (state = {}, action) => {
       return {
         loading: false,
         order: action.payload,
+        user: action.payload.user,
       };
     case CREATE_ORDER_FAIL:
       return {
@@ -55,10 +56,12 @@ export const myOrderReducer = (state = { orders: [] }, action) => {
     case MY_ORDER_REQUEST:
       return {
         loading: true,
+        orders: [],
       };
     case MY_ORDER_SUCCESS:
       return {
         loading: false,
+        user: action.payload.user,
         orders: action.payload,
       };
     case MY_ORDER_FAIL:
@@ -77,7 +80,7 @@ export const myOrderReducer = (state = { orders: [] }, action) => {
   }
 };
 
-export const allOrdersReducer = (state = { orders: [] }, action) => {
+export const allOrdersReducer = (state = { orders: [], user: "" }, action) => {
   switch (action.type) {
     case ALL_ORDERS_REQUEST:
       return {

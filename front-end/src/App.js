@@ -2,16 +2,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import WebFont from "webfontloader";
 import { loadUser } from "./actions/userAction";
 import "./App.scss";
-import Home from "./components/Home/Home";
-import Loader from "./components/layout/Loader/Loader";
-import ProductDetails from "./components/Product/ProductDetails";
-import Products from "./components/Product/Products";
-import store from "./store";
 import Dashboard from "./components/Admin/Dashboard";
 import NewProduct from "./components/Admin/NewProduct";
 import OrderList from "./components/Admin/OrderList";
@@ -26,18 +20,23 @@ import ConfirmOrder from "./components/Cart/ConfirmOrder";
 import OrderSuccess from "./components/Cart/OrderSuccess";
 import Payment from "./components/Cart/Payment";
 import Shipping from "./components/Cart/Shipping";
+import Home from "./components/Home/Home";
 import Contact from "./components/layout/Contact/Contact";
 import Footer from "./components/layout/Footer/Footer";
 import Header from "./components/layout/Header/Header";
+import Loader from "./components/layout/Loader/Loader";
 import MyOrders from "./components/Order/MyOrders";
 import OrderDetails from "./components/Order/OrderDetails";
-import ProtectedRoute from "./routes/ProtectedRoute";
+import Products from "./components/Product/Products";
+import ForgotPassword from "./components/User/ForgotPassword";
+import Login from "./components/User/Login";
 import Profile from "./components/User/Profile";
+import Register from "./components/User/Register";
 import ResetPassword from "./components/User/ResetPassword";
 import UpdatePassword from "./components/User/UpdatePassword";
-import Login from "./components/User/Login";
-import Register from "./components/User/Register";
-import ForgotPassword from "./components/User/ForgotPassword";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import store from "./store";
+import ProductDetails from "./components/Product/ProductDetails";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -161,6 +160,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/cart" element={<Cart />} />
+        {/* <Route exact path="/orders" element={<MyOrders />} /> */}
+        {/* <Route exact path="/order/:id" element={<OrderDetails />} /> */}
       </Routes>
       <Routes>
         <Route

@@ -2,6 +2,7 @@ const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const User = require("../models/userModel");
 
 // Create new Order
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
@@ -53,9 +54,11 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 // get logged in user Order
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
   const order = await Order.find({ user: req.user._id });
+  const user = await User.find({ _id: req.user._id });
 
   res.status(200).json({
     success: true,
+    user,
     order,
   });
 });
@@ -66,7 +69,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 
   let totalAmount = 0;
 
-  order.forEach(order => {
+  order.forEach((order) => {
     totalAmount += order.totalPrice;
   });
 
@@ -81,19 +84,19 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
-  if (order.orderStatus === 'Delivered') {
-    return next(new ErrorHandler('You have already delivered', 400));
+  if (order.orderStatus === "Delivered") {
+    return next(new ErrorHandler("You have already delivered", 400));
   }
 
   if (req.body.status === "Shipped") {
     order.orderItems.forEach(async (o) => {
       await updateStock(o.product, o.quantity);
-    })
+    });
   }
 
   order.orderStatus = req.body.status;
-  
-  if (req.body.status === 'Delivered') {
+
+  if (req.body.status === "Delivered") {
     order.deliveredAt = Date.now();
   }
 
@@ -105,7 +108,7 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-async function updateStock (id, quantity) {
+async function updateStock(id, quantity) {
   const product = await Product.findById(id);
 
   product.Stock -= quantity;
@@ -128,16 +131,17 @@ exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
 exports.cancelOrder = catchAsyncErrors(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
-  if (order.orderStatus === 'Confirmed') {
-    return next(new ErrorHandler('Your order confirmed, you cannot Cancel', 400));
+  if (order.orderStatus === "Confirmed") {
+    return next(
+      new ErrorHandler("Your order confirmed, you cannot Cancel", 400)
+    );
   }
 
-  if (order.orderStatus === 'Processing') {
-    order.orderStatus = 'Canceled';
+  if (order.orderStatus === "Processing") {
+    order.orderStatus = "Canceled";
   }
 
   res.status(200).json({
     success: true,
-  })
-})
-
+  });
+});

@@ -56,7 +56,9 @@
   
   @media screen and (max-width: 600px) {
     .myOrdersPage {
-      padding: 0;
+      padding-left: 50px;
+      padding-right: 50px;
+      margin-top: 50px;
       height: 93vh;
     }
   
@@ -77,3 +79,41 @@
       font: 500 5vw "Merriweather Sans" !important;
     }
   }
+.MuiDataGrid-columnHeaderTitle{
+  color: black !important;
+}
+@media screen and (max-width: 1200px) {
+  .myOrdersPage {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 50px;
+    height: 93vh;
+  }
+
+  #myOrdersHeading {
+    font: 400 2.2vmax "Merriweather Sans";
+    padding: 4vw;
+  }
+
+  .myOrdersTable div {
+    font: 300 4vw "Merriweather Sans";
+  }
+
+  .MuiDataGrid-columnHeader {
+    padding: 20px !important;
+  }
+
+  .MuiDataGrid-columnHeader div {
+    font: 500 5vw "Merriweather Sans" !important;
+  }
+}
+.greenColor{
+  color:green !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+.redColor {
+  color: red !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}

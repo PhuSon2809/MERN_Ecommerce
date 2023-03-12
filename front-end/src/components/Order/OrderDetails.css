@@ -1,5 +1,6 @@
 .orderDetailsPage {
     background-color: white;
+    max-width: 100%;
 }
 
 .orderDetailsContainer > h1 {
@@ -9,7 +10,8 @@
 }
 
 .orderDetailsContainer {
-    padding: 5vmax;
+    padding-left: 10vmax;
+    padding-right: 5vmax;
     padding-bottom: 0%;
 }
 
@@ -44,7 +46,8 @@
 
 .orderDetailsCartItems {
     padding: 2vmax 5vmax;
-    border-top: 1px solid rgba(0, 0, 0, 0.164);
+    /* border-top: 1px solid rgba(0, 0, 0, 0.164); */
+    margin-top: 9vmax;
 }
 
 .orderDetailsCartItemsContainer > div > img {
