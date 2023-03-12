@@ -1,17 +1,15 @@
 import React from "react";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
 import ButtonCustom from "../../../container/ButtonCustom/ButtonCustom";
 import MetaData from "../MetaData";
-import "./Contact.css";
 import {
   BoxContactItem,
   BoxTitle,
   InputCustom,
-  TitlePage,
+  TitlePage
 } from "./ContactStyle";
-import { BoxLogo } from "../Footer/FooterStyle";
 
 const Contact = () => {
   return (
