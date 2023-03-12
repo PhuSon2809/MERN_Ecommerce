@@ -12,6 +12,8 @@ import { getAdminProduct } from "../../actions/productAction";
 import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
 import MetaData from "../layout/MetaData";
+import Welcome from "./Welcome/Welcome";
+import Tag from "./Tag/Tag";
 ChartJS.register(...registerables);
 
 const Dashboard = () => {
@@ -47,7 +49,7 @@ const Dashboard = () => {
       {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
-        hoverBackgroundColor: ["rgb(197, 72, 49)"],
+        hoverBackgroundColor: ["rgb(209, 206, 17)"],
         data: [0, totalAmount],
       },
     ],
@@ -57,8 +59,8 @@ const Dashboard = () => {
     labels: ["Out of Stock", "In Stock"],
     datasets: [
       {
-        backgroundColor: ["#00A6B4", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000", "#35014F"],
+        backgroundColor: ["#ff0000", "#0d6efd"],
+        hoverBackgroundColor: ["#f73e3e", "#3e86f3"],
         data: [outOfStock, products.length - outOfStock],
       },
     ],
@@ -70,35 +72,36 @@ const Dashboard = () => {
       <div className="dashboard">
         <Sidebar />
         <div className="dashboardContainer">
-          <Typography component="h1">Dashboard</Typography>
+          <Welcome />
           <div className="dashboardSummary">
-            <div>
-              <p>
-                Total Amount <br /> {totalAmount} VND{" "}
-              </p>
-            </div>
             <div className="dashboardSummaryBox2">
               <Link to="/admin/products">
-                <p>Product</p>
-                <p>{products && products?.length}</p>
+                <Tag label={"Product"} color={'primary'} value={products && products.length} />
               </Link>
               <Link to="/admin/orders">
-                <p>Orders</p>
-                <p>{orders && orders.length}</p>
+                <Tag label={"Orders"} color={'warning'} value={orders && orders.length} />
               </Link>
-              <Link to="/admin/users" className="dashboardUser">
-                <p>Users</p>
-                <p>{users && users.length}</p>
+
+              <Link to="/admin/users">
+                <Tag label={"Users"} color={'info'} value={users && users.length} />
               </Link>
+              <a>
+              <Tag label={'Total Amount'} color={'danger'} value={totalAmount}/>
+              </a>
+
             </div>
           </div>
 
-          <div className="lineChart">
-            <Line data={lineState} />
-          </div>
+          <div className="dashboard-chart">
+            <div className="doughnutChart">
+              <p style={{marginBottom: '40px', marginTop: '20px'}}>Stock chart</p>
+              <Doughnut data={doughnutState} />
+            </div>
 
-          <div className="doughnutChart">
-            <Doughnut data={doughnutState} />
+            <div className="lineChart">
+            <p>Amount Chart</p>
+              <Line data={lineState} />
+            </div>
           </div>
         </div>
       </div>

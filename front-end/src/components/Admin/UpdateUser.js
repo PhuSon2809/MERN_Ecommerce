@@ -85,50 +85,58 @@ const UpdateUser = () => {
             <Loader />
           ) : (
             <form
-              className="createProductForm"
+              className="update-product-form"
               onSubmit={updateUserSubmitHandler}
             >
-              <h1>Update User</h1>
+              <h1 className="title">Update User</h1>
 
-              <div>
-                <PersonIcon />
+              <div className="update-product-control">
+                <span className="update-product-label col-sm-3">Name</span>
                 <input
                   type="text"
                   placeholder="Name"
                   required
+                  className="form-control col-sm-9"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div>
-                <MailOutlineIcon />
+              <div className="update-product-control">
+                <span className="update-product-label col-sm-3">Email</span>
                 <input
                   type="email"
                   placeholder="Email"
                   required
+                  className="form-control col-sm-9"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
-              <div>
-                <VerifiedUserIcon />
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <div className="update-product-control">
+                <span className="update-product-label col-sm-3">Role</span>
+                <select
+                  className="form-control col-sm-9"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                >
                   <option value="">Choose Role</option>
                   <option value="admin">Admin</option>
                   <option value="user">User</option>
                 </select>
               </div>
 
-              <Button
-                id="createProductBtn"
-                type="submit"
-                disabled={
-                  updateLoading ? true : false || role === "" ? true : false
-                }
-              >
-                Update
-              </Button>
+              <div className="update-btn">
+                <Button
+                  id="createProductBtn"
+                  type="submit"
+                  disabled={
+                    updateLoading ? true : false || role === "" ? true : false
+                  }
+                >
+                  Update
+                </Button>
+              </div>
             </form>
           )}
         </div>

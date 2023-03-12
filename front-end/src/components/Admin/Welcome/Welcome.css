@@ -1,0 +1,21 @@
+.bg-gradient-primary{
+   background :linear-gradient(45deg, #0052cc, #00baff) !important;
+   border-radius: 20px;
+}
+
+.box-body{
+    padding-left: 50px;
+}
+
+.bg-margin{
+    margin: 0 30px !important;
+    transition: 0.5s;
+}
+
+.bg-margin:hover{
+    transform: scale(1.02);
+}
+
+.bg-image-margin{
+    margin-right: -37px !important;
+}

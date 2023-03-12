@@ -43,12 +43,10 @@
 .dashboardSummaryBox2 > a {
     color:rgb(0, 0, 0);
     font: 300 2rem "Merriweather Sans";
-    background-color: rgb(255, 233, 174);
     text-align: center;
-    padding: 1.5rem;
     height: 10vmax;
-    width: 10vmax;
-    margin: 2rem;
+    width: 100%;
+    margin: 2rem 0;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -57,34 +55,34 @@
     border-radius: 100%;
 }
 
-.dashboardPet {
-    background-color: #90dcdc !important;
-    color: rgb(255, 255, 255);
-}
-
-.dashboardUser {
-    background-color: #d4d466 !important;
-    color: rgb(255, 255, 255);
-}
-
-.dashboardSummaryBox2 > a:first-child {
-    background-color: rgb(255, 110, 100);
-    color: rgb(255, 255, 255);
-}
-
-.dashboardSummaryBox2 > a:last-child {
-    background-color: rgb(51, 51, 51);
-    color: rgb(255, 255, 255);
-}
-
 .lineChart {
-    width: 80%;
-    margin: auto;
+    width: 60% !important;
+    margin-left: 40px;
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    transition: .5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 30px 0 rgb(82 63 105 / 5%);
 }
 
 .doughnutChart {
-    width: 30vmax;
-    margin: auto;
+    width: 25% !important;
+    margin-left: 60px;
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    transition: .5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 30px 0 rgb(82 63 105 / 5%);
 }
 
 @media screen and (max-width: 600px) {
@@ -105,4 +103,11 @@
         margin: 1rem;
         font: 300 0.9rem "Merriweather Sans";
     }
+}
+
+.dashboard-chart{
+    display: flex;
+    justify-content: space-around;
+    width: 1200px;
+    margin: 0;
 }
