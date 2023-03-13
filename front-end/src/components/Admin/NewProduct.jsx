@@ -172,7 +172,7 @@ const NewProduct = () => {
                 type="file"
                 name="avatar"
                 accept="image/*"
-                className="form-control"
+                // className="form-control"
                 onChange={createProductImagesChange}
                 multiple
               />

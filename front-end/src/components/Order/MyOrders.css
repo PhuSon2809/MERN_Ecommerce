@@ -6,7 +6,7 @@
     background-color: rgb(235, 235, 235);
     top: 0;
     left: 0;
-    height: 100vh;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
   }
@@ -41,7 +41,7 @@
   }
   
   .MuiDataGrid-columnHeader {
-    background-color: #99d98c;
+    /* background-color: #99d98c; */
     padding: 1vmax !important;
   }
   
@@ -79,9 +79,11 @@
       font: 500 5vw "Merriweather Sans" !important;
     }
   }
-.MuiDataGrid-columnHeaderTitle{
-  color: black !important;
-}
+
+  .MuiDataGrid-root .MuiDataGrid-main{
+    margin: 20px;
+  }
+
 @media screen and (max-width: 1200px) {
   .myOrdersPage {
     padding-left: 50px;
