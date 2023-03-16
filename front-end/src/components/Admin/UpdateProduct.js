@@ -201,7 +201,7 @@ const UpdateProduct = () => {
               <input
                 type="file"
                 name="avatar"
-                className="form-control"
+                // className="form-control"
                 accept="image/*"
                 onChange={updateProductImagesChange}
                 multiple
@@ -209,6 +209,8 @@ const UpdateProduct = () => {
             </div>
 
             <div className="product-update-img-container">
+              <p style={{marginLeft: "20px", marginRight: "60px", marginTop: "40px"}}>Image</p>
+
               <div id="createProductFormImage" className="product-update-img">
                 {oldImages &&
                   oldImages.map((image, index) => (
