@@ -29,7 +29,7 @@ function AnotherProduct() {
       >
         {productsRandom &&
           productsRandom.map((product) => (
-            <SwiperSlide key={product.id}>
+            <SwiperSlide key={product._id}>
               <ProductItem product={product} />
             </SwiperSlide>
           ))}

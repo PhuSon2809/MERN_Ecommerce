@@ -10,12 +10,12 @@ import "tippy.js/dist/tippy.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
 import "bootstrap-social/bootstrap-social.css";
-import { ToastContainer } from "react-toastify";
 
 const options = {
-  timeout: 5000,
-  position: positions.BOTTOM_CENTER,
-  transition: transitions.SCALE,
+  timeout: 3000,
+  position: positions.TOP_RIGHT,
+  transition: transitions.FADE,
+  offset: '30px',
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

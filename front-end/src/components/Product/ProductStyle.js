@@ -93,7 +93,7 @@ export const BoxInput = styled(Box)({
 export const InputCustom = styled(InputBase)({
   borderRadius: "5px",
   border: "1.2px solid #ffd90c",
-  width: "63px",
+  width: "70px",
   padding: "1px 20px",
   fontSize: "18px",
 });

@@ -4,6 +4,9 @@ import {
   REMOVE_CART_ITEM,
   SAVE_SHIPPING_INFO,
   REMOVE_ALL_CART,
+  INCREASE_QUANTITY_CART,
+  DECREASE_QUANTITY_CART,
+  UPDATE_QUANTITY_CART,
 } from "../constants/cartConstant";
 
 // Add to cart
@@ -25,6 +28,36 @@ export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
+export const increaseQuantityCart = (id) => async (dispatch, getState) => {
+  dispatch({
+    type: INCREASE_QUANTITY_CART,
+    payload: id,
+  });
+
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+export const decreaseQuantityCart = (id) => async (dispatch, getState) => {
+  dispatch({
+    type: DECREASE_QUANTITY_CART,
+    payload: id,
+  });
+
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+export const updateQuantityCart =
+  (id, newQuantity) => async (dispatch, getState) => {
+    dispatch({
+      type: UPDATE_QUANTITY_CART,
+      payload: { id, newQuantity },
+    });
+
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(getState().cart.cartItems)
+    );
+  };
 // Remove from cart
 export const removeItemsFromCart = (id) => async (dispatch, getState) => {
   dispatch({

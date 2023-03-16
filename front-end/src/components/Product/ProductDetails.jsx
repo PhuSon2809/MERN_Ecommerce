@@ -44,6 +44,7 @@ import {
 } from "./ProductStyle";
 import ReviewCard from "./ReviewCard";
 import AnotherProduct from "./AnotherProduct";
+import { ToastContainer } from "react-toastify";
 
 const ProductDetails = () => {
   const alert = useAlert();
@@ -69,18 +70,18 @@ const ProductDetails = () => {
     precision: 0.5,
   };
 
-  const [quantity, setQuantity] = useState(1);
-  const [editQuantity, setEditQuantity] = useState({
-    id: "",
-    status: false,
-  });
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  console.log(quantity);
 
   const increaseQuantity = () => {
-    if (product.Stock <= quantity) return;
+    if (product.Stock <= quantity) {
+      alert.error(`Only ${product.Stock} products in stock!`);
+      return;
+    }
 
-    const qty = quantity + 1;
+    const qty = parseInt(quantity) + 1;
     setQuantity(qty);
   };
 
@@ -91,9 +92,20 @@ const ProductDetails = () => {
     setQuantity(qty);
   };
 
+  const handleBlur = () => {
+    if (quantity > product.Stock) {
+      alert.error(`Only ${product.Stock} products in stock!`);
+      setQuantity(1);
+    } else if (quantity === null || quantity === "" || quantity === "0") {
+      setQuantity(1);
+    }
+  };
+
   const addToCartHandler = () => {
-    dispatch(addItemsToCart(id, quantity));
-    alert.success("Item Added To Cart");
+    if (quantity <= product.Stock) {
+      dispatch(addItemsToCart(id, quantity));
+      alert.success("Item Added To Cart");
+    }
   };
 
   const reviewSubmitHandler = () => {
@@ -222,7 +234,13 @@ const ProductDetails = () => {
                       >
                         <RemoveIcon />
                       </IconButton>
-                      <InputCustom readOnly type="number" value={quantity} />
+                      <InputCustom
+                        type="number"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                        onFocus={(e) => setQuantity("")}
+                        onBlur={() => handleBlur()}
+                      />
                       <IconButton
                         onClick={increaseQuantity}
                         sx={{

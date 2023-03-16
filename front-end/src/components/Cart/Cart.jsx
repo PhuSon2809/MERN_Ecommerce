@@ -6,11 +6,13 @@ import Typography from "@material-ui/core/Typography";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { Container, Grid, IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import {
   addItemsToCart,
+  decreaseQuantityCart,
+  increaseQuantityCart,
   removeAllFromCart,
   removeItemsFromCart,
+  updateQuantityCart,
 } from "../../actions/cartAction";
 import ButtonCustom from "../../container/ButtonCustom/ButtonCustom";
 import CartItemCard from "./CartItemCard";
@@ -30,13 +32,15 @@ import {
   ContentFooter,
 } from "./CartStyle";
 import MetaData from "../layout/MetaData";
+import { useAlert } from "react-alert";
 
 const Cart = () => {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("");
   const [editQuantity, setEditQuantity] = useState({
     id: "",
     status: false,
@@ -44,31 +48,20 @@ const Cart = () => {
 
   const increaseQuantity = (id, quantity, stock) => {
     if (stock <= quantity) {
-      toast.info(`Only ${stock} products in stock!`);
+      alert.info(`Only ${stock} products in stock!`);
       return;
     }
 
-    const index = cartItems.findIndex((p) => p.product === id);
-    const currentProduct = cartItems[index];
-
-    const newQty = (currentProduct.quantity += 1);
-    console.log(newQty);
-
-    dispatch(addItemsToCart(id, newQty));
+    dispatch(increaseQuantityCart(id));
   };
 
-  const decreaseQuantity = (id, quantity) => {
-    const index = cartItems.findIndex((p) => p.product === id);
-    const currentProduct = cartItems[index];
-
-    if (1 >= quantity) {
+  const decreaseQuantity = (id, stock) => {
+    if (stock < 1) {
+      alert.info(`Products out of stock!`);
       return;
     }
 
-    if (cartItems[index].quantity > 1) {
-      const newQty = (currentProduct.quantity -= 1);
-      dispatch(addItemsToCart(id, newQty));
-    }
+    dispatch(decreaseQuantityCart(id));
   };
 
   const handleEditQuantity = (id) => {
@@ -79,21 +72,22 @@ const Cart = () => {
   };
 
   const handleBlur = (id, stock) => {
-    if (quantity === "" || quantity === "0") {
+    if (quantity === null || quantity === "" || quantity === "0") {
       setQuantity(1);
+      setEditQuantity({
+        id,
+        status: false,
+      });
+      return;
     }
 
-    const index = cartItems.findIndex((p) => p.product === id);
-    const currentProduct = cartItems[index];
-
     if (quantity > stock) {
-      toast.error(`Only ${stock} products in stock!`);
+      alert.error(`Only ${stock} products in stock!`);
       setQuantity(1);
       return;
     }
-    
-    const quantityUpdate = (currentProduct.quantity = parseInt(quantity));
-    dispatch(addItemsToCart(id, quantityUpdate));
+
+    dispatch(updateQuantityCart(id, parseInt(quantity)));
     setEditQuantity({
       id,
       status: false,
@@ -107,10 +101,6 @@ const Cart = () => {
   const checkoutHandler = () => {
     navigate("/login?redirect=/shipping");
   };
-
-  useEffect(() => {
-    // navigate("redirect=/cart");
-  }, [quantity]);
 
   return (
     <Container>
@@ -155,13 +145,12 @@ const Cart = () => {
                         <BoxInput>
                           <ButtonCus
                             onClick={() =>
-                              decreaseQuantity(item.product, item.quantity)
+                              decreaseQuantity(item.product, item.stock)
                             }
                           >
                             <RemoveIcon />
                           </ButtonCus>
                           <InputCustom
-                            // readOnly
                             type="number"
                             value={
                               editQuantity.status &&
@@ -172,9 +161,7 @@ const Cart = () => {
                             onChange={(e) => setQuantity(e.target.value)}
                             onFocus={(e) => setQuantity("")}
                             onClick={() => handleEditQuantity(item.product)}
-                            onBlur={() =>
-                              handleBlur(item.product, item.stock)
-                            }
+                            onBlur={() => handleBlur(item.product, item.stock)}
                           />
                           <ButtonCus
                             onClick={() =>
@@ -240,18 +227,6 @@ const Cart = () => {
           </Grid>
         </BoxCart>
       )}
-      <ToastContainer
-        position="top-right"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </Container>
   );
 };
