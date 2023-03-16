@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useRef } from "react";
-import CheckoutSteps from "../Cart/CheckoutSteps";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
 import { Typography } from "@material-ui/core";
@@ -77,9 +76,9 @@ const Payment = () => {
             email: user.email,
             address: {
               line1: shippingInfo.address,
-              city: shippingInfo.city,
+              // city: shippingInfo.city,
               state: shippingInfo.state,
-              postal_code: shippingInfo.pinCode,
+              // postal_code: shippingInfo.pinCode,
               country: shippingInfo.country,
             },
           },
@@ -120,7 +119,6 @@ const Payment = () => {
   return (
     <Fragment>
       <MetaData title="Payment" />
-      <CheckoutSteps activeStep={2} />
       <div className="paymentContainer">
         <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
           <Typography>Card Info</Typography>

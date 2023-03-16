@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import RemoveIcon from "@mui/icons-material/Remove";
 import {
   Box,
+  Button,
   Container,
   Grid,
   IconButton,
@@ -169,14 +170,21 @@ const ProductDetails = () => {
 
                 <Typography sx={{ display: "flex", gap: "10px" }}>
                   Availability:
-                  <Stock sx={{ color: product.Stock < 1 ? "red" : "#198754" }}>
-                    In stock
-                    {product.Stock < 1 ? (
+                  {product.Stock < 1 ? (
+                    <Stock
+                      sx={{ color: product.Stock < 1 ? "red" : "#198754" }}
+                    >
+                      Out of stock
                       <CloseIcon fontSize="small" />
-                    ) : (
+                    </Stock>
+                  ) : (
+                    <Stock
+                      sx={{ color: product.Stock < 1 ? "red" : "#198754" }}
+                    >
+                      In stock
                       <CheckOutlinedIcon fontSize="small" />
-                    )}
-                  </Stock>
+                    </Stock>
+                  )}
                 </Typography>
 
                 <Box>
@@ -190,48 +198,58 @@ const ProductDetails = () => {
                   </Typography>
                 </Box>
 
-                <BoxQuantity>
-                  <Typography variant="h6" sx={{ fontWeight: "600" }}>
-                    Quantity:
-                  </Typography>
-                  <BoxInput>
-                    <IconButton
-                      onClick={decreaseQuantity}
-                      sx={{
-                        color: "#000",
-                        background: "#ffd90c",
-                        "&:hover": {
+                {product.Stock < 1 ? (
+                  <></>
+                ) : (
+                  <BoxQuantity>
+                    <Typography variant="h6" sx={{ fontWeight: "600" }}>
+                      Quantity:
+                    </Typography>
+                    <BoxInput>
+                      <IconButton
+                        onClick={decreaseQuantity}
+                        sx={{
+                          color: "#000",
                           background: "#ffd90c",
-                        },
-                      }}
-                    >
-                      <RemoveIcon />
-                    </IconButton>
-                    <InputCustom readOnly type="number" value={quantity} />
-                    <IconButton
-                      onClick={increaseQuantity}
-                      sx={{
-                        color: "#000",
-                        background: "#ffd90c",
-                        "&:hover": {
+                          "&:hover": {
+                            background: "#ffd90c",
+                          },
+                        }}
+                      >
+                        <RemoveIcon />
+                      </IconButton>
+                      <InputCustom readOnly type="number" value={quantity} />
+                      <IconButton
+                        onClick={increaseQuantity}
+                        sx={{
+                          color: "#000",
                           background: "#ffd90c",
-                        },
-                      }}
-                    >
-                      <AddIcon />
-                    </IconButton>
-                  </BoxInput>
-                </BoxQuantity>
+                          "&:hover": {
+                            background: "#ffd90c",
+                          },
+                        }}
+                      >
+                        <AddIcon />
+                      </IconButton>
+                    </BoxInput>
+                  </BoxQuantity>
+                )}
 
-                <ButtonCustom
-                  size="large"
-                  fullWidth
-                  disabled={product.stock < 1 ? true : false}
-                  onClick={addToCartHandler}
-                  startIcon={<AddShoppingCartIcon />}
-                >
-                  Add to Cart
-                </ButtonCustom>
+                {product.Stock < 1 ? (
+                  <Button fullWidth color="error" variant="contained">
+                    Hết Hàng
+                  </Button>
+                ) : (
+                  <ButtonCustom
+                    size="large"
+                    fullWidth
+                    disabled={product.stock < 1 ? true : false}
+                    onClick={addToCartHandler}
+                    startIcon={<AddShoppingCartIcon />}
+                  >
+                    Add to Cart
+                  </ButtonCustom>
+                )}
               </BoxContent>
             </Grid>
           </Grid>

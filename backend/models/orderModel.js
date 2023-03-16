@@ -6,22 +6,12 @@ const orderSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    city: {
+    province: {
       type: String,
       required: true,
     },
-
-    state: {
+    district: {
       type: String,
-      required: true,
-    },
-
-    country: {
-      type: String,
-      required: true,
-    },
-    pinCode: {
-      type: Number,
       required: true,
     },
     phoneNo: {

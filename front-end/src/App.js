@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import WebFont from "webfontloader";
+import { ToastContainer } from 'react-toastify';
 import { loadUser } from "./actions/userAction";
 import "./App.scss";
 import Dashboard from "./components/Admin/Dashboard";
@@ -156,7 +157,6 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />
-        {/* <Route path="/products/:keyword" element={<Products />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/cart" element={<Cart />} />
@@ -176,6 +176,7 @@ function App() {
         />
       </Routes>
       <Footer />
+      
     </Fragment>
   );
 }

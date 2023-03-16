@@ -14,11 +14,9 @@ import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { clearErrors, getProductRandom } from "../../actions/productAction";
 import { CategoryData } from "../../assets/data/CategoryData";
-import { fetureProduct } from "../../assets/data/FetureProduct";
 import { serviceData } from "../../assets/data/ServiceData";
 import ButtonCustom from "../../container/ButtonCustom/ButtonCustom";
 import CategoryItem from "../../container/CategoryItem/CategoryItem";
-import FetureProduct from "../../container/FetureProduct/FetureProduct";
 import ProductItem from "../../container/ProductItem/ProductItem";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
@@ -26,7 +24,6 @@ import Carousel from "./Carousel/Carousel";
 import {
   BoxContent,
   BoxPr,
-  BoxProduct,
   BoxService,
   BoxUser,
   ContentUser,

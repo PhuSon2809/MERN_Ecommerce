@@ -138,3 +138,16 @@ body {
     line-height: 17px;
   }
 }
+
+.image-style {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  border: 1px solid #a8a8a8;
+}
+
+select {
+  outline: none;
+  border: none;
+  width: 100%;
+}

@@ -10,6 +10,7 @@ import "tippy.js/dist/tippy.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
 import "bootstrap-social/bootstrap-social.css";
+import { ToastContainer } from "react-toastify";
 
 const options = {
   timeout: 5000,
@@ -23,6 +24,18 @@ root.render(
     <Provider store={store}>
       <AlertProvider template={AlertTemplate} {...options}>
         <App />
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </AlertProvider>
     </Provider>
   </BrowserRouter>

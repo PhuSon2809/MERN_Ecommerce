@@ -13,6 +13,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import { useNavigate } from "react-router-dom";
+import { CategoryData } from "../../assets/data/CategoryData";
 
 const NewProduct = () => {
   const dispatch = useDispatch();
@@ -145,9 +146,9 @@ const NewProduct = () => {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">Category</option>
-                {categories.map((cate) => (
-                  <option key={cate} value={cate}>
-                    {cate}
+                {CategoryData.map((cate) => (
+                  <option key={cate.id} value={cate.name}>
+                    {cate.name}
                   </option>
                 ))}
               </select>
