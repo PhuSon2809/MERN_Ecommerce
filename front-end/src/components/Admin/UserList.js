@@ -11,6 +11,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
 import { getAllUsers, clearErrors, deleteUser } from "../../actions/userAction";
 import { DELETE_USER_RESET } from "../../constants/userConstant";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -26,6 +29,24 @@ const UserList = () => {
   const deleteUserHandler = (id) => {
     dispatch(deleteUser(id));
   };
+
+  const [open, setOpen] = React.useState(false);
+  const [idDelete, setIdDelete] = React.useState("");
+
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setIdDelete(id)
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleAgree = () =>{
+    deleteUserHandler(idDelete)
+    setOpen(false);
+
+ }
 
   useEffect(() => {
     if (error) {
@@ -45,7 +66,8 @@ const UserList = () => {
   }, [dispatch, navigate, error, alert, deleteError, isDeleted, message]);
 
   const columns = [
-    { field: "id", headerName: "User ID",  flex: 1.5 },
+    { field: "id", headerName: "User ID",  flex: 1.5, hide: true },
+    { field: "STT", headerName: "STT",  flex: 1 },
     {
       field: "email",
       headerName: "Email",
@@ -72,7 +94,7 @@ const UserList = () => {
 
     {
       field: "actions",
-      flex: 1,
+      flex: 0.5,
       headerName: "Actions",
       type: "number",
       sortable: false,
@@ -84,8 +106,8 @@ const UserList = () => {
             </Link>
 
             <Button
-              onClick={() =>
-                deleteUserHandler(params.getValue(params.id, "id"))
+              onClick={() => handleClickOpen(params.getValue(params.id, "id"))
+                // deleteUserHandler(params.getValue(params.id, "id"))
               }
             >
               <DeleteIcon />
@@ -96,10 +118,12 @@ const UserList = () => {
     },
   ];
   const rows = [];
+  let count = 1;
 
   users &&
     users.forEach((item) => {
       rows.push({
+        STT: count++,
         id: item._id,
         role: item.role,
         email: item.email,
@@ -123,6 +147,25 @@ const UserList = () => {
             autoHeight
           />
         </div>
+      </div>
+
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Are you sure to delete this user?"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose}>No</Button>
+            <Button onClick={handleAgree} autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </Fragment>
   );

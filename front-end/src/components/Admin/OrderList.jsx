@@ -11,6 +11,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
 import { getAllOrders, deleteOrder, clearErrors } from "../../actions/orderAction";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstant";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const OrderList = () => {
   const dispatch = useDispatch();
@@ -22,6 +25,24 @@ const OrderList = () => {
   const deleteOrderHandler = (id) => {
     dispatch(deleteOrder(id));
   }
+
+  const [open, setOpen] = React.useState(false);
+  const [idDelete, setIdDelete] = React.useState("");
+
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setIdDelete(id)
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleAgree = () =>{
+    deleteOrderHandler(idDelete)
+    setOpen(false);
+
+ }
 
   useEffect(() => {
     if (error) {
@@ -41,7 +62,8 @@ const OrderList = () => {
   }, [dispatch, navigate, error, alert, deleteError, isDeleted])
 
   const columns = [
-    { field: "id", headerName: "Order ID", flex: 1.5 },
+    { field: "id", headerName: "Order ID", flex: 1.5, hide: true },
+    { field: "STT", headerName: "STT", flex: 1.5 },
     {
       field: "status",
       headerName: "Status",
@@ -78,7 +100,9 @@ const OrderList = () => {
               <EditIcon />
             </Link>
 
-            <Button onClick={() => deleteOrderHandler(params.getValue(params.id, "id"))}>
+            <Button onClick={() => handleClickOpen(params.getValue(params.id, "id"))
+              // deleteOrderHandler(params.getValue(params.id, "id"))
+              }>
               <DeleteIcon />
             </Button>
           </Fragment>
@@ -87,10 +111,12 @@ const OrderList = () => {
     },
   ];
   const rows = [];
+  let count = 1;
 
   orders &&
     orders.forEach((item) => {
       rows.push({
+        STT: count++,
         id: item._id,
         itemQty: item.orderItems.length,
         amount: item.totalPrice,
@@ -115,7 +141,28 @@ const OrderList = () => {
           />
         </div>
       </div>
+
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Are you sure to delete this order?"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose}>No</Button>
+            <Button onClick={handleAgree} autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </Fragment>
+
+    
   );
 };
 

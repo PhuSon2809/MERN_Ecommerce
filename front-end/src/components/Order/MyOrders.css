@@ -42,7 +42,8 @@
   
   .MuiDataGrid-columnHeader {
     /* background-color: #99d98c; */
-    padding: 1vmax !important;
+    margin-left: -8px ;
+    padding: 4px 4px 4px 10px !important;
   }
   
   .MuiDataGrid-columnHeader div {
@@ -111,11 +112,11 @@
 }
 .greenColor{
   color:green !important;
-  font-size: 20px !important;
+  font-size: 18px !important;
   font-weight: 700 !important;
 }
 .redColor {
   color: red !important;
-  font-size: 20px !important;
+  font-size: 17px !important;
   font-weight: 700 !important;
 }
