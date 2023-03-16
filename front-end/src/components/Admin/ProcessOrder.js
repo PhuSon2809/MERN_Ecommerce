@@ -17,11 +17,11 @@ import { UPDATE_ORDER_RESET } from "../../constants/orderConstant";
 import "./ProcessOrder.css";
 
 function formatCurrency(currency) {
-    return currency.toLocaleString("it-IT", {
-      style: "currency",
-      currency: "VND",
-    });
-  }
+  return currency.toLocaleString("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
+}
 
 const ProcessOrder = () => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
@@ -70,15 +70,55 @@ const ProcessOrder = () => {
             <Loader />
           ) : (
             <div
-              className="confirmOrderPage"
               style={{
                 display: order?.orderStatus === "Delivered" ? "block" : "grid",
               }}
             >
-              <div>
-                <div className="confirmshippingArea">
-                  <Typography>Shipping Info</Typography>
-                  <div className="orderDetailsContainerBox">
+              <div className="confirmOrderPage">
+                {/* Shipping Info */}
+                <div>
+                  {/* Payment */}
+                  <div className="process-order-payment">
+                    <div>
+                      <h1>Payment: </h1>
+                      <p
+                        className={
+                          order?.paymentInfo &&
+                          order?.paymentInfo.status === "succeeded"
+                            ? "greenColor"
+                            : "redColor"
+                        }
+                      >
+                        {order?.paymentInfo &&
+                        order?.paymentInfo.status === "succeeded"
+                          ? "PAID"
+                          : "NOT PAID"}
+                      </p>
+                    </div>
+                    <div className="process-order-payment_amount">
+                      <p>Amount:</p>
+                      <span>{order?.totalPrice && order?.totalPrice}</span>
+                    </div>
+                  </div>
+
+                  {/* Oder status */}
+                  <div className="process-order-status">
+                    <h1>Order Status: </h1>
+                    <p
+                      className={
+                        order?.orderStatus && order?.orderStatus === "Delivered"
+                          ? "greenColor"
+                          : "redColor"
+                      }
+                    >
+                      {order?.orderStatus && order?.orderStatus}
+                    </p>
+                  </div>
+
+                  <div className="process-order-shipping-info">
+                    <h1 className="process-order-shipping-info-name">
+                      Shipping Information
+                    </h1>
                     <div>
                       <p>Name:</p>
                       <span>{order?.user && order?.user.name}</span>
@@ -97,79 +137,43 @@ const ProcessOrder = () => {
                       </span>
                     </div>
                   </div>
-
-                  <Typography>Payment</Typography>
-                  <div className="orderDetailsContainerBox">
-                    <div>
-                      <p
-                        className={
-                          order?.paymentInfo &&
-                          order?.paymentInfo.status === "succeeded"
-                            ? "greenColor"
-                            : "redColor"
-                        }
-                      >
-                        {order?.paymentInfo &&
-                        order?.paymentInfo.status === "succeeded"
-                          ? "PAID"
-                          : "NOT PAID"}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p>Amount:</p>
-                      <span>{order?.totalPrice && order?.totalPrice}</span>
-                    </div>
-                  </div>
-
-                  <Typography>Order Status</Typography>
-                  <div className="orderDetailsContainerBox">
-                    <div>
-                      <p
-                        className={
-                          order?.orderStatus && order?.orderStatus === "Delivered"
-                            ? "greenColor"
-                            : "redColor"
-                        }
-                      >
-                        {order?.orderStatus && order?.orderStatus}
-                      </p>
-                    </div>
-                  </div>
                 </div>
-                <div className="confirmCartItems">
-                  <Typography>Your Cart Items:</Typography>
-                  <div className="confirmCartItemsContainer">
-                    {order?.orderItems &&
-                      order?.orderItems.map((item) => (
-                        <div key={item.product}>
-                          <img src={item.image} alt="Product" />
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>{" "}
-                          <span>
-                            {item.quantity} X {formatCurrency(item.price)} ={" "}
-                            <b>{formatCurrency(item.price * item.quantity)}</b>
-                          </span>
-                        </div>
-                      ))}
-                  </div>
+
+                {/*  */}
+                {/* Cart Items */}
+                <div className="process-order-cart-item">
+                  <h1>Your Cart Items</h1>
+                  {order?.orderItems &&
+                    order?.orderItems.map((item) => (
+                      <div key={item.product}>
+                        <img
+                          className="process-product-image"
+                          src={item.image}
+                          alt="Product"
+                        />
+                        <Link className="process-product-link" to={`/product/${item.product}`}>{item.name}</Link>{" "}
+                        <span>
+                          {item.quantity} X {formatCurrency(item.price)} ={" "}
+                          <b>{formatCurrency(item.price * item.quantity)}</b>
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               {/*  */}
               <div
                 style={{
-                  display: order?.orderStatus === "Delivered" ? "none" : "block",
+                  display:
+                    order?.orderStatus === "Delivered" ? "none" : "block",
                 }}
               >
                 <form
                   className="updateOrderForm"
                   onSubmit={updateOrderSubmitHandler}
                 >
-                  <h1>Process Order</h1>
 
                   <div>
-                    <AccountTreeIcon />
+                  <h1>Process Order</h1>
                     <select onChange={(e) => setStatus(e.target.value)}>
                       <option value="">Choose Category</option>
                       {order?.orderStatus === "Processing" && (
@@ -180,9 +184,8 @@ const ProcessOrder = () => {
                         <option value="Delivered">Delivered</option>
                       )}
                     </select>
-                  </div>
 
-                  <Button
+                    <Button
                     id="createProductBtn"
                     type="submit"
                     disabled={
@@ -191,6 +194,9 @@ const ProcessOrder = () => {
                   >
                     Process
                   </Button>
+                  </div>
+
+                  
                 </form>
               </div>
             </div>

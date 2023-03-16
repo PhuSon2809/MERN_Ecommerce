@@ -1,14 +1,36 @@
 .updateOrderForm {
-    margin: 5vmax 0;
-    padding: 3vmax;
+    margin: 3vmax 0;
+    padding: 2vmax;
     background-color: white;
+  }
+
+  .confirmOrderPage{
+    display: flex;
+  }
+
+  .process-product-image{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
   }
   
   .updateOrderForm > div {
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    width: 30%;
+    margin: 0 auto;
     align-items: center;
+    box-shadow: 2px 2px 2px 2px #ffd90c;
+    padding: 20px;
   }
+
+  .updateOrderForm h1{
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    color: #000;
+  }
+
   .updateOrderForm > div > select {
     padding: 1vmax 4vmax;
     margin: 2rem 0;
@@ -40,4 +62,92 @@
     .updateOrderForm > div > svg {
       font-size: 2.8vmax;
     }
+  }
+
+  .process-order-shipping-info{
+    box-shadow: 2px 2px 2px 2px #ffd90c;
+    margin: 30px 20px 20px 20px;
+    padding: 10px;
+  }
+
+  .process-order-shipping-info div{
+    display: flex;
+  }
+
+  .process-order-shipping-info div p{
+    font-weight: 500;
+  }
+
+  .process-order-shipping-info span{
+    margin-left: 10px;
+  }
+
+  .process-order-shipping-info-name{
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    color: #000;
+  }
+
+  .process-order-status{
+    display: flex;
+  }
+
+  .process-order-status h1{
+    font-weight: 600;
+    font-size: 16px;
+    color: #000;
+    margin: 6px 10px 0px 20px;
+  }
+
+  .process-order-status p{
+    margin-top: 3px;
+  }
+
+  .process-order-payment div{
+    display: flex;
+  }
+
+  .process-order-payment h1{
+    font-weight: 600;
+    font-size: 16px;
+    color: #000;
+    margin: 30px 10px 0px 20px;
+  }
+
+  .process-order-payment p{
+    margin-top: 27px;
+    font-size: 16px;
+
+  }
+
+  .process-order-payment_amount p{
+    margin-left: 20px;
+    margin-top: 0;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+
+  .process-order-cart-item h1{
+    font-weight: 600;
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .process-order-cart-item div{
+    padding: 20px
+  }
+
+  .process-product-link{
+    padding: 6px
+  }
+
+  .process-order-cart-item{
+    box-shadow: 2px 2px 2px 2px #ffd90c;
+    min-height: 60px;
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-bottom: 18px;
   }

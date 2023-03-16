@@ -65,10 +65,6 @@
   flex-direction: unset !important;
 }
 
-.MuiDataGrid-cell{
-  padding: 0 20px !important;
-}
-
 .MuiDataGrid-columnHeaderWrapper{
   background-color: #000;
   padding: 6px;

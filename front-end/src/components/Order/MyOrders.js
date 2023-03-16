@@ -19,28 +19,26 @@ const MyOrders = () => {
   // const { user } = useSelector((state) => state.user);
 
   const columns = [
-    { field: "id", headerName: "Order ID", maxWidth: 200, flex: 0.2 },
-    { field: "userName", headerName: "User Name", maxWidth: 250, flex: 0.2 },
+    { field: "id", headerName: "Order ID", maxWidth: 200, flex: 0.2, hide: true },
+    { field: "STT", headerName: "STT", flex: 1 },
+    { field: "userName", headerName: "User Name",  flex: 1 },
 
     {
       field: "itemQty",
       headerName: "Item Qty",
       type: "number",
-      maxWidth: 203,
-      flex: 0.2,
+      flex: 1,
     },
     {
       field: "amount",
       headerName: "Amount",
       type: "number",
-      maxWidth: 203,
-      flex: 0.2,
+      flex: 1,
     },
     {
       field: "status",
       headerName: "Status",
-      maxWidth: 200,
-      flex: 0.2,
+      flex: 1,
       cellClassName: (params) => {
         return params.getValue(params.id, "status") === "Delivered"
           ? "greenColor"
@@ -50,8 +48,7 @@ const MyOrders = () => {
     {
       field: "actions",
       headerName: "Actions",
-      maxWidth: 250,
-      flex: 0.2,
+      flex: 1,
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -78,10 +75,12 @@ const MyOrders = () => {
   // ];
   // const rows = orderTest;
   const rows = [];
+  let count = 1;
 
   orders &&
     orders.forEach((item, index) => {
       rows.push({
+        STT: count++,
         itemQty: item.orderItems.length,
         id: item._id,
         status: item.orderStatus,
