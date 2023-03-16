@@ -29,9 +29,6 @@ import {
   BoxMenu,
   ItemAction,
   MenuItemCustom,
-  // Search,
-  // SearchIconWrapper,
-  // StyledInputBase,
   ToolbarBox,
 } from "./HeaderStyle";
 import Search from "../../../container/Search/Search";
@@ -174,7 +171,9 @@ function Header() {
             >
               {pages.map((page, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.title}</Typography>
+                  <NavLink to={page.link} style={{ color: "#000" }}>
+                    <Typography textAlign="center">{page.title}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
