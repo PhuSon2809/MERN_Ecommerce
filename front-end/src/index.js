@@ -24,18 +24,6 @@ root.render(
     <Provider store={store}>
       <AlertProvider template={AlertTemplate} {...options}>
         <App />
-        <ToastContainer
-          position="top-right"
-          autoClose={4000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
       </AlertProvider>
     </Provider>
   </BrowserRouter>

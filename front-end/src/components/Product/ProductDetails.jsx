@@ -70,6 +70,10 @@ const ProductDetails = () => {
   };
 
   const [quantity, setQuantity] = useState(1);
+  const [editQuantity, setEditQuantity] = useState({
+    id: "",
+    status: false,
+  });
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
