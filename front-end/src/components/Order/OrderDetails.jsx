@@ -1,21 +1,20 @@
 import React, { Fragment, useEffect } from "react";
-// import "./OrderDetails.css";
-import { useSelector, useDispatch } from "react-redux";
-import MetaData from "../layout/MetaData";
-import { Link, useParams } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-import { getOrderDetails, clearErrors } from "../../actions/orderAction";
-import Loader from "../layout/Loader/Loader";
+import { Container } from "@mui/material";
 import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { clearErrors, getOrderDetails } from "../../actions/orderAction";
 import CartItemAcep from "../Cart/CartItemAcep";
-import { Container, Grid, IconButton } from "@mui/material";
 import {
   BoxCartItems,
   BoxRow,
   GreenStatus,
   RedStatus,
-  TitleCart,
+  TitleCart
 } from "../Cart/CartStyle";
+import Loader from "../layout/Loader/Loader";
+import MetaData from "../layout/MetaData";
 
 function formatCurrency(currency) {
   return currency.toLocaleString("it-IT", {
@@ -27,6 +26,7 @@ function formatCurrency(currency) {
 const OrderDetails = () => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
 
+  console.log(order);
   const dispatch = useDispatch();
   const alert = useAlert();
   const { id } = useParams();
@@ -74,14 +74,6 @@ const OrderDetails = () => {
                         `${
                           order?.shippingInfo.address
                             ? order.shippingInfo.address
-                            : ""
-                        }, ${
-                          order?.shippingInfo.city
-                            ? order.shippingInfo.city
-                            : ""
-                        }, ${
-                          order?.shippingInfo.state
-                            ? order.shippingInfo.state
                             : ""
                         }, ${
                           order?.shippingInfo.districtName

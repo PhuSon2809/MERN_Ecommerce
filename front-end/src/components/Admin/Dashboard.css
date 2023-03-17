@@ -13,7 +13,7 @@
 
 .dashboardContainer > h1 {
     color: rgba(0, 0, 0, 0.773);
-    font: 300 2rem "Merriweather Sans";
+    /* font: 300 2rem "Merriweather Sans"; */
     text-align: center;
     width: 50%;
     padding: 1.5rem;
@@ -36,13 +36,13 @@
     width: 100%;
     margin: 0 2rem;
     text-align: center;
-    font: 300 1.3rem "Merriweather Sans";
+    /* font: 300 1.3rem "Merriweather Sans"; */
     padding: 1.5rem;
 }
 
 .dashboardSummaryBox2 > a {
     color:rgb(0, 0, 0);
-    font: 300 2rem "Merriweather Sans";
+    /* font: 300 2rem "Merriweather Sans"; */
     text-align: center;
     height: 10vmax;
     width: 100%;
@@ -101,7 +101,7 @@
     .dashboardSummaryBox2 > a {
         padding: 0.5rem;
         margin: 1rem;
-        font: 300 0.9rem "Merriweather Sans";
+        /* font: 300 0.9rem "Merriweather Sans"; */
     }
 }
 

@@ -6,6 +6,14 @@ const orderSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    provinceName: {
+      type: String,
+      required: true,
+    },
+    districtName: {
+      type: String,
+      required: true,
+    },
     province: {
       type: String,
       required: true,

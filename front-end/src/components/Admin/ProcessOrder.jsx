@@ -133,13 +133,12 @@ const ProcessOrder = () => {
                       <p>Address:</p>
                       <span>
                         {order?.shippingInfo &&
-                          `${order?.shippingInfo.address}, ${order?.shippingInfo.city}, ${order?.shippingInfo.state}, ${order?.shippingInfo.pinCode}, ${order?.shippingInfo.country}`}
+                          `${order?.shippingInfo.address}, ${order?.shippingInfo.districtName}, ${order?.shippingInfo.provinceName}`}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/*  */}
                 {/* Cart Items */}
                 <div className="process-order-cart-item">
                   <h1>Your Cart Items</h1>
@@ -151,7 +150,13 @@ const ProcessOrder = () => {
                           src={item.image}
                           alt="Product"
                         />
-                        <Link className="process-product-link" to={`/product/${item.product}`}>{item.name}</Link>{" "}
+                        <Link
+                          className="process-product-link"
+                          to={`/product/${item.product}`}
+                          style={{ color: "#000" }}
+                        >
+                          {item.name}
+                        </Link>
                         <span>
                           {item.quantity} X {formatCurrency(item.price)} ={" "}
                           <b>{formatCurrency(item.price * item.quantity)}</b>
@@ -171,9 +176,8 @@ const ProcessOrder = () => {
                   className="updateOrderForm"
                   onSubmit={updateOrderSubmitHandler}
                 >
-
                   <div>
-                  <h1>Process Order</h1>
+                    <h1>Process Order</h1>
                     <select onChange={(e) => setStatus(e.target.value)}>
                       <option value="">Choose Category</option>
                       {order?.orderStatus === "Processing" && (
@@ -186,17 +190,15 @@ const ProcessOrder = () => {
                     </select>
 
                     <Button
-                    id="createProductBtn"
-                    type="submit"
-                    disabled={
-                      loading ? true : false || status === "" ? true : false
-                    }
-                  >
-                    Process
-                  </Button>
+                      id="createProductBtn"
+                      type="submit"
+                      disabled={
+                        loading ? true : false || status === "" ? true : false
+                      }
+                    >
+                      Process
+                    </Button>
                   </div>
-
-                  
                 </form>
               </div>
             </div>

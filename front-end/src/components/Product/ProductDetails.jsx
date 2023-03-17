@@ -44,7 +44,6 @@ import {
 } from "./ProductStyle";
 import ReviewCard from "./ReviewCard";
 import AnotherProduct from "./AnotherProduct";
-import { ToastContainer } from "react-toastify";
 
 const ProductDetails = () => {
   const alert = useAlert();

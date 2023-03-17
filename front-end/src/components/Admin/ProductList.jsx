@@ -71,7 +71,7 @@ const ProductList = () => {
 
   const columns = [
     { field: "id", headerName: "Order ID", flex: 1.5, hide: true },
-    { field: "STT", headerName: "STT", flex: 1 },
+    { field: "STT", headerName: "STT", flex: 0.5 },
     {
       field: "name",
       headerName: "Name",

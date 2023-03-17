@@ -39,8 +39,6 @@ function formatCurrency(currency) {
 }
 
 const Payment = () => {
-  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-
   const dispatch = useDispatch();
   const alert = useAlert();
   const stripe = useStripe();
@@ -48,6 +46,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const payBtn = useRef(null);
 
+  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.newOrder);

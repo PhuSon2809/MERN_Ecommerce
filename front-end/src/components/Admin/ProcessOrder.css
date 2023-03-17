@@ -38,7 +38,7 @@
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.267);
     border-radius: 4px;
-    font: 300 0.9vmax "Merriweather Sans";
+    /* font: 300 0.9vmax "Merriweather Sans"; */
     outline: none;
   }
   
@@ -56,7 +56,7 @@
   
     .updateOrderForm > div > select {
       padding: 2.5vmax 5vmax;
-      font: 300 1.7vmax "Merriweather Sans";
+      /* font: 300 1.7vmax "Merriweather Sans"; */
     }
   
     .updateOrderForm > div > svg {

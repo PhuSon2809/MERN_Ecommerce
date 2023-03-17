@@ -9,7 +9,7 @@ function Tag({ label, value, color }) {
           <div className={`bg-${color} rounded`}>
             <h5 className="text-white text-center p-10">{label}</h5>
           </div>
-          <p className="mb-0 font-size-18">{value}</p>
+          <p className="mb-0 font-size-18 value">{value}</p>
         </div>
       </div>
     </>
