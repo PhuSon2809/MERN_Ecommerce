@@ -59,6 +59,7 @@ const Shipping = () => {
   useEffect(() => {
     const fetchPublicProvince = async () => {
       const response = await apiGetPublicProvinces();
+      console.log(response);
       if (response.status === 200) {
         setProvinces(response?.data.results);
       }

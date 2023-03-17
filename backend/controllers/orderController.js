@@ -28,6 +28,10 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     user: req.user._id,
   });
 
+  await orderItems.forEach(async (o) => {
+    await updateStock(o.product, o.quantity);
+  });
+
   res.status(201).json({
     success: true,
     order,
@@ -90,11 +94,11 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("You have already delivered", 400));
   }
 
-  if (req.body.status === "Shipped") {
-    order.orderItems.forEach(async (o) => {
-      await updateStock(o.product, o.quantity);
-    });
-  }
+  // if (req.body.status === "Shipped") {
+  //   order.orderItems.forEach(async (o) => {
+  //     await updateStock(o.product, o.quantity);
+  //   });
+  // }
 
   order.orderStatus = req.body.status;
 

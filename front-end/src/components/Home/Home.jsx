@@ -1,11 +1,5 @@
 import StarIcon from "@mui/icons-material/Star";
-import {
-  Box,
-  Container,
-  Grid,
-  IconButton,
-  Typography
-} from "@mui/material";
+import { Box, Container, Grid, IconButton, Typography } from "@mui/material";
 import React, { Fragment, useEffect } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +23,7 @@ import {
   ContentUser,
   DateTime,
   NameUser,
-  Title
+  Title,
 } from "./HomeStyle";
 
 const Home = () => {
@@ -57,8 +51,8 @@ const Home = () => {
           <Container>
             <Carousel />
             <Grid container sx={{ mb: 4 }}>
-              <Grid item md={3}>
-                <BoxPr>
+              <Grid item sm={3} md={3}>
+                <BoxPr sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
                   <img
                     src="https://cdn.shopify.com/s/files/1/0549/6851/6852/files/Banner.jpg?v=1647230535"
                     alt="PR"
@@ -97,7 +91,7 @@ const Home = () => {
                   />
                 </BoxPr>
               </Grid>
-              <Grid item md={9} sx={{ pl: 3 }}>
+              <Grid item sm={9} md={9} sx={{ pl: 3 }}>
                 <Box>
                   <Title>SHOP CATEGORIES</Title>
                   <Swiper
@@ -127,7 +121,7 @@ const Home = () => {
                   <Grid container sx={{ mt: 5 }}>
                     {productsRandom &&
                       productsRandom.map((product) => (
-                        <Grid item md={4} key={product._id}>
+                        <Grid item sm={6} md={4} key={product._id}>
                           <ProductItem product={product} />
                         </Grid>
                       ))}
@@ -139,7 +133,12 @@ const Home = () => {
                   </ButtonCustom>
                 </Link>
 
-                <Box sx={{ mt: 5 }}>
+                <Box
+                  sx={{
+                    mt: 5,
+                    display: { xs: "none", md: "flex" },
+                  }}
+                >
                   <Grid container>
                     {serviceData.map((service) => (
                       <Grid key={service.id} item md={4}>
