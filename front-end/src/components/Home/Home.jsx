@@ -95,12 +95,6 @@ const Home = () => {
                     src="https://cdn.shopify.com/s/files/1/0549/6851/6852/files/Banner-1.jpg?v=1647230535"
                     alt="PR"
                   />
-                  {/* <Title>FEATURE PRODUCTS</Title>
-                  <BoxProduct>
-                    {fetureProduct.map((item) => (
-                      <FetureProduct key={item.id} product={item} />
-                    ))}
-                  </BoxProduct> */}
                 </BoxPr>
               </Grid>
               <Grid item md={9} sx={{ pl: 3 }}>

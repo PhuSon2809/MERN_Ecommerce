@@ -13,6 +13,8 @@ import {
   ButtonCustom,
   StyledBreadcrumb,
   StyledBreadcrumbActive,
+  TitleCart,
+  BoxRow
 } from "./CartStyle";
 
 function formatCurrency(currency) {
@@ -31,7 +33,7 @@ const ConfirmOrder = () => {
     0
   );
 
-  const shippingCharges = subtotal > 100000 ? 0 : 15000;
+  const shippingCharges = 30000;
 
   const tax = subtotal * 0.1;
 
@@ -52,7 +54,7 @@ const ConfirmOrder = () => {
 
     navigate("/process/payment");
   };
-  
+
   return (
     <Container sx={{ mt: 10, mb: 10 }}>
       <MetaData title="Confirm Order" />
@@ -91,23 +93,23 @@ const ConfirmOrder = () => {
         </Grid>
         <Grid item md={7} sx={{ pl: 8 }}>
           <Box>
-            <Typography>Shipping Info</Typography>
-            <Box className="confirmshippingAreaBox">
-              <Box>
+            <TitleCart variant="h4">Shipping Info</TitleCart>
+            <Box>
+              <BoxRow>
                 <Typography>Name:</Typography>
                 <Typography>{user.name}</Typography>
-              </Box>
-              <Box>
+              </BoxRow>
+              <BoxRow>
                 <Typography>Phone:</Typography>
                 <Typography>{shippingInfo.phoneNo}</Typography>
-              </Box>
-              <Box>
+              </BoxRow>
+              <BoxRow>
                 <Typography>Address:</Typography>
                 <Typography>{address}</Typography>
-              </Box>
+              </BoxRow>
             </Box>
           </Box>
-          <ButtonCustom onClick={proceedToPayment}>
+          <ButtonCustom onClick={proceedToPayment} sx={{mt: 2}}>
             Proceed To Payment
           </ButtonCustom>
         </Grid>

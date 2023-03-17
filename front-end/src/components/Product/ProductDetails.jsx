@@ -179,10 +179,12 @@ const ProductDetails = () => {
                     : ""
                 }`}</Typography>
 
-                <Green sx={{ color: "#198754" }}>
-                  Hurry up! only <Tag>{product.Stock}</Tag> products left in
-                  stock!
-                </Green>
+                {product.Stock > 0 && (
+                  <Green sx={{ color: "#198754" }}>
+                    Hurry up! only <Tag>{product.Stock}</Tag> products left in
+                    stock!
+                  </Green>
+                )}
 
                 <Typography sx={{ display: "flex", gap: "10px" }}>
                   Availability:
@@ -257,11 +259,7 @@ const ProductDetails = () => {
                   </BoxQuantity>
                 )}
 
-                {product.Stock < 1 ? (
-                  <Button fullWidth color="error" variant="contained">
-                    Hết Hàng
-                  </Button>
-                ) : (
+                {product.Stock > 0 && (
                   <ButtonCustom
                     size="large"
                     fullWidth

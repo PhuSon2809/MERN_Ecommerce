@@ -39,14 +39,14 @@ const orderSchema = new mongoose.Schema({
       },
       product: {
         type: mongoose.Schema.ObjectId,
-        ref: "Product",
+        ref: "products",
         required: true,
       },
     },
   ],
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: "User",
+    ref: "users",
     required: true,
   },
   paymentInfo: {

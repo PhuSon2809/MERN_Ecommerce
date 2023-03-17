@@ -75,9 +75,6 @@ function App() {
         </Elements>
       )}
       <Routes>
-        <Route >
-
-        </Route>
         <Route exact path="/" element={<Home />} />
         <Route
           exact
@@ -156,7 +153,6 @@ function App() {
           path="/password/reset/:token"
           element={<ResetPassword />}
         />
-        <Route path="/sad" element={<Loader />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element={<Products />} />

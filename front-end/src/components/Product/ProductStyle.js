@@ -6,6 +6,17 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
+export const BoxEmpty = styled(Box)({
+  minHeight: "50vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  gap: "20px",
+  marginTop: "100px",
+  marginBottom: "100px",
+});
+
 export const BoxCategory = styled(Box)({
   width: "100%",
   padding: "10px",

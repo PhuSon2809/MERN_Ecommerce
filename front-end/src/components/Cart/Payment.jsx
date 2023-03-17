@@ -1,24 +1,42 @@
-import React, { Fragment, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import MetaData from "../layout/MetaData";
+import React, { useEffect, useRef } from "react";
 import { Typography } from "@material-ui/core";
-import { useAlert } from "react-alert";
-import {
-  CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
-import axios from "axios";
-import "./Payment.css";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Box, Breadcrumbs, Container, Grid } from "@mui/material";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import axios from "axios";
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearErrors, createOrder } from "../../actions/orderAction";
-import { REMOVE_CART_ITEM } from "../../constants/cartConstant";
 import { removeAllFromCart } from "../../actions/cartAction";
+import { clearErrors, createOrder } from "../../actions/orderAction";
+import MetaData from "../layout/MetaData";
+import CartItemAcep from "./CartItemAcep";
+import {
+  BoxCartItems,
+  BoxPrice,
+  BoxPriceTotal,
+  ButtonCustom,
+  StyledBreadcrumb,
+  StyledBreadcrumbActive,
+  TitleCart,
+} from "./CartStyle";
+import "./Payment.scss";
+
+function formatCurrency(currency) {
+  return currency.toLocaleString("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
+}
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -45,7 +63,7 @@ const Payment = () => {
     taxPrice: orderInfo.tax,
     shippingPrice: orderInfo.shippingCharges,
     totalPrice: orderInfo.totalPrice,
-  }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -76,9 +94,7 @@ const Payment = () => {
             email: user.email,
             address: {
               line1: shippingInfo.address,
-              // city: shippingInfo.city,
               state: shippingInfo.state,
-              // postal_code: shippingInfo.pinCode,
               country: shippingInfo.country,
             },
           },
@@ -91,7 +107,7 @@ const Payment = () => {
         alert.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
-          order.paymentInfo={
+          order.paymentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
@@ -117,33 +133,65 @@ const Payment = () => {
   }, [dispatch, alert, error]);
 
   return (
-    <Fragment>
+    <Container sx={{ mt: 10, mb: 10 }} className="payment-outline">
       <MetaData title="Payment" />
-      <div className="paymentContainer">
-        <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
-          <Typography>Card Info</Typography>
-          <div>
-            <CreditCardIcon />
-            <CardNumberElement className="paymentInput" />
-          </div>
-          <div>
-            <EventIcon />
-            <CardExpiryElement className="paymentInput" />
-          </div>
-          <div>
-            <VpnKeyIcon />
-            <CardCvcElement className="paymentInput" />
-          </div>
-
-          <input
-            type="submit"
-            value={`Pay - ${orderInfo && orderInfo.totalPrice}`}
-            ref={payBtn}
-            className="paymentFormBtn"
-          />
-        </form>
-      </div>
-    </Fragment>
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        separator={<NavigateNextIcon fontSize="small" />}
+      >
+        <StyledBreadcrumb label="Information" />
+        <StyledBreadcrumb label="Confirm order" />
+        <StyledBreadcrumbActive label="Payment" />
+      </Breadcrumbs>
+      <Grid container sx={{ mt: 5 }}>
+        <Grid item md={5}>
+          <BoxCartItems>
+            {cartItems &&
+              cartItems.map((item) => (
+                <CartItemAcep key={item.product} cartItem={item} />
+              ))}
+          </BoxCartItems>
+          <BoxPrice>
+            <Typography variant="h6">Subtotal:</Typography>
+            <Typography>{formatCurrency(orderInfo.subtotal)}</Typography>
+          </BoxPrice>
+          <BoxPrice>
+            <Typography variant="h6">Shipping Charges:</Typography>
+            <Typography>{formatCurrency(orderInfo.shippingCharges)}</Typography>
+          </BoxPrice>
+          <BoxPrice>
+            <Typography variant="h6">GST:</Typography>
+            <Typography>{formatCurrency(orderInfo.tax)}</Typography>
+          </BoxPrice>
+          <BoxPriceTotal>
+            <Typography variant="h6">Total:</Typography>
+            <Typography>{formatCurrency(orderInfo.totalPrice)}</Typography>
+          </BoxPriceTotal>
+        </Grid>
+        <Grid item md={7} sx={{ pl: 8 }}>
+          <Box>
+            <TitleCart variant="h4">Payment</TitleCart>
+            <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
+              <div>
+                <CreditCardIcon />
+                <CardNumberElement className="paymentInput" />
+              </div>
+              <div>
+                <EventIcon />
+                <CardExpiryElement className="paymentInput" />
+              </div>
+              <div>
+                <VpnKeyIcon />
+                <CardCvcElement className="paymentInput" />
+              </div>
+              <ButtonCustom fullWidth type="submit" ref={payBtn}>
+                Payment
+              </ButtonCustom>
+            </form>
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Rating, Typography } from "@mui/material";
+import { Box, Rating, Typography, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addItemsToCart } from "../../actions/cartAction";
@@ -34,17 +34,20 @@ function ProductItem({ product }) {
           />
         </Link>
         <BoxAction sx={{ mt: 2, mb: 1 }}>
-          <ButtonCustom
-            size="small"
-            variant="contained"
-            color="#000"
-            onClick={addToCartHandler}
-          >
-            Add to cart
-          </ButtonCustom>
-          {/* <IconButton sx={{ color: "#ffd90c" }}>
-              <FavoriteBorderOutlinedIcon />
-            </IconButton> */}
+          {product.Stock < 1 ? (
+            <Button color="error" variant="contained">
+              Out of stock
+            </Button>
+          ) : (
+            <ButtonCustom
+              size="small"
+              variant="contained"
+              color="#000"
+              onClick={addToCartHandler}
+            >
+              Add to cart
+            </ButtonCustom>
+          )}
         </BoxAction>
       </Box>
       <BoxContext>

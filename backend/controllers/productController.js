@@ -98,7 +98,7 @@ exports.getAdminProduct = catchAsyncErrors(async (req, res, next) => {
 
 exports.getProductRandom = catchAsyncErrors(async (req, res, next) => {
   const apiFeature = new ApiFeatures(
-    Product.aggregate([{ $sample: { size: 9 } }, { $limit: 9 }]),
+    Product.aggregate([{ $sample: { size: 9 } }, { $limit: 9 }, ]),
     req.query
   );
 

@@ -1,4 +1,11 @@
-import { Box, Button, Chip, FormControl, InputBase, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  FormControl,
+  InputBase,
+  Typography,
+} from "@mui/material";
 import { emphasize, styled } from "@mui/material/styles";
 
 export const BoxEmpty = styled(Box)({
@@ -138,7 +145,7 @@ export const StyledBreadcrumbActive = styled(Chip)(({ theme }) => {
 
 export const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
-    theme.palette.mode === 'light'
+    theme.palette.mode === "light"
       ? theme.palette.grey[100]
       : theme.palette.grey[800];
   return {
@@ -147,10 +154,10 @@ export const StyledBreadcrumb = styled(Chip)(({ theme }) => {
     fontSize: "15px",
     color: theme.palette.text.primary,
     fontWeight: theme.typography.fontWeightRegular,
-    '&:hover, &:focus': {
+    "&:hover, &:focus": {
       backgroundColor: emphasize(backgroundColor, 0.06),
     },
-    '&:active': {
+    "&:active": {
       boxShadow: theme.shadows[1],
       backgroundColor: emphasize(backgroundColor, 0.12),
     },
@@ -238,4 +245,23 @@ export const BoxPriceTotal = styled(Box)({
   alignItems: "center",
   justifyContent: "space-between",
   borderTop: "1.5px solid #ffd90c",
+});
+
+export const BoxRow = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  gap: "10px",
+  marginTop: "10px",
+});
+
+export const RedStatus = styled(Typography)({
+  color: "red",
+  fontWeight: "700 !important",
+  fontSize: "17px",	  
+});
+
+export const GreenStatus = styled(Typography)({
+  color: "green",
+  fontSize: "17px",	  
 });

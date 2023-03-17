@@ -9,16 +9,18 @@ import { CategoryData } from "../../assets/data/CategoryData";
 import ProductItem from "../../container/ProductItem/ProductItem";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
-import { BoxCategory, CategoryItem, NameTag } from "./ProductStyle";
+import { BoxCategory, BoxEmpty, CategoryItem, NameTag } from "./ProductStyle";
+import { TitleCart } from "../Cart/CartStyle";
 
 const Products = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 3000000]);
+  const [price, setPrice] = useState([0, 50000000]);
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState(0);
+  const [reload, setReload] = useState(false);
 
   const {
     products,
@@ -44,7 +46,16 @@ const Products = () => {
       dispatch(clearErrors());
     }
     dispatch(getProduct(keyword, currentPage, price, category, rating));
-  }, [dispatch, keyword, currentPage, price, category, rating, alert, error]);
+  }, [
+    dispatch,
+    keyword,
+    currentPage,
+    price,
+    category,
+    rating,
+    alert,
+    error,
+  ]);
 
   return (
     <Container sx={{ mt: 10, mb: 10 }}>
@@ -53,6 +64,7 @@ const Products = () => {
       ) : (
         <Fragment>
           <MetaData title="Products" />
+
           <Grid container>
             <Grid item md={3}>
               <BoxCategory>
@@ -87,33 +99,43 @@ const Products = () => {
               </BoxCategory>
             </Grid>
             <Grid item md={9}>
-              <Grid container sx={{ pl: 5 }}>
-                {products &&
-                  products.map((product) => (
-                    <Grid key={product._id} item md={4}>
-                      <ProductItem product={product} />
-                    </Grid>
-                  ))}
+              {products.length === 0 ? (
+                <BoxEmpty>
+                  <TitleCart variant="h4">No Product in Your Options</TitleCart>
+                </BoxEmpty>
+              ) : (
+                <Grid container sx={{ pl: 5 }}>
+                  {products &&
+                    products.map((product) => (
+                      <Grid key={product._id} item md={4}>
+                        <ProductItem product={product} />
+                      </Grid>
+                    ))}
 
-                <Box
-                  sx={{ width: "100%", display: "flex", alignItems: "center" }}
-                >
-                  <Stack spacing={2} sx={{ mr: "auto", ml: "auto" }}>
-                    <Pagination
-                      count={Math.ceil(
-                        filteredProductsCount
-                          ? filteredProductsCount / resultPerPage
-                          : productsCount / resultPerPage
-                      )}
-                      page={currentPage}
-                      onChange={setCurrentPageNo}
-                      variant="outlined"
-                      color="secondary"
-                      sx={{ width: "100%" }}
-                    />
-                  </Stack>
-                </Box>
-              </Grid>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Stack spacing={2} sx={{ mr: "auto", ml: "auto" }}>
+                      <Pagination
+                        count={Math.ceil(
+                          filteredProductsCount
+                            ? filteredProductsCount / resultPerPage
+                            : productsCount / resultPerPage
+                        )}
+                        page={currentPage}
+                        onChange={setCurrentPageNo}
+                        variant="outlined"
+                        color="secondary"
+                        sx={{ width: "100%" }}
+                      />
+                    </Stack>
+                  </Box>
+                </Grid>
+              )}
             </Grid>
           </Grid>
         </Fragment>

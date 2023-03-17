@@ -29,11 +29,11 @@ const options = [
     name: "Change password",
     to: "/password/update",
   },
-  {
-    icon: <FormatListBulletedIcon sx={{ color: "#ffd90c" }} />,
-    name: "My Orders",
-    to: "/orders",
-  },
+  // {
+  //   icon: <FormatListBulletedIcon sx={{ color: "#ffd90c" }} />,
+  //   name: "My Orders",
+  //   to: "/orders",
+  // },
 ];
 
 const Profile = () => {

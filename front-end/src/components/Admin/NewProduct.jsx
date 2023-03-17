@@ -30,17 +30,6 @@ const NewProduct = () => {
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesReview] = useState([]);
 
-  const categories = [
-    "Food",
-    "Treat",
-    "Toy",
-    "Collar",
-    "Leash",
-    "Cage",
-    "Muzzle",
-    "Backpack",
-  ];
-
   useEffect(() => {
     if (error) {
       alert.error(error);

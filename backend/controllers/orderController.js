@@ -53,7 +53,9 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 
 // get logged in user Order
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
-  const order = await Order.find({ user: req.user._id });
+  const order = await Order.find({ user: req.user._id })
+    .sort("-createdAt")
+    .populate("user");
   const user = await User.find({ _id: req.user._id });
 
   res.status(200).json({
@@ -65,7 +67,7 @@ exports.myOrders = catchAsyncErrors(async (req, res, next) => {
 
 //get all Orders -- Admin
 exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
-  const order = await Order.find();
+  const order = await Order.find({}).sort("-createdAt").populate("user");
 
   let totalAmount = 0;
 

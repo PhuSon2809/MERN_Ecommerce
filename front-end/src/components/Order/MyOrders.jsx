@@ -1,31 +1,37 @@
 import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import "./MyOrders.css";
-import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, myOrders } from "../../actions/orderAction";
-import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";
-import { useAlert } from "react-alert";
-import { Typography } from "@material-ui/core";
-import MetaData from "../layout/MetaData";
 import LauchIcon from "@material-ui/icons/Launch";
-import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import { Container, IconButton } from "@mui/material";
+import moment from "moment";
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { clearErrors, myOrders } from "../../actions/orderAction";
+import { BoxEmpty, ButtonCustom, TitleCart } from "../Cart/CartStyle";
+import Loader from "../layout/Loader/Loader";
+import MetaData from "../layout/MetaData";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
   const { loading, error, orders } = useSelector((state) => state.myOrders);
-  // const { user } = useSelector((state) => state.user);
 
   const columns = [
-    { field: "id", headerName: "Order ID", maxWidth: 200, flex: 0.2, hide: true },
+    {
+      field: "id",
+      headerName: "Order ID",
+      maxWidth: 100,
+      flex: 0.2,
+      hide: true,
+    },
     { field: "STT", headerName: "STT", flex: 1 },
-    { field: "userName", headerName: "User Name",  flex: 1 },
+    { field: "userName", headerName: "User Name", flex: 1 },
 
     {
       field: "itemQty",
-      headerName: "Item Qty",
+      headerName: "Item Quantity",
       type: "number",
       flex: 1,
     },
@@ -33,6 +39,11 @@ const MyOrders = () => {
       field: "amount",
       headerName: "Amount",
       type: "number",
+      flex: 1,
+    },
+    {
+      field: "createDate",
+      headerName: "Create Date",
       flex: 1,
     },
     {
@@ -60,21 +71,9 @@ const MyOrders = () => {
       },
     },
   ];
-  // const orderTest = [
-  //   { id: 1, userName: "abc", itemQty: 10, amount: 5, status: "Delivered" },
-  //   { id: 2, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 3, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 4, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 5, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 6, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 7, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 8, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 9, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 10, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  //   { id: 11, userName: "bca", itemQty: 10, amount: 2, status: "NotDelivered" },
-  // ];
-  // const rows = orderTest;
+
   const rows = [];
+
   let count = 1;
 
   orders &&
@@ -85,10 +84,10 @@ const MyOrders = () => {
         id: item._id,
         status: item.orderStatus,
         amount: item.totalPrice,
-        user: item.user.name,
+        userName: item.user.name,
+        createDate: moment(item.createdAt).format("hh:mm - DD/MM/YYYY") ,
       });
     });
-  console.log(orders);
 
   useEffect(() => {
     if (error) {
@@ -100,18 +99,29 @@ const MyOrders = () => {
 
   return (
     <Fragment>
-      {/* <MetaData title={`${user.name} - Orders`} /> */}
       <MetaData title={`Orders`} />
       {loading ? (
         <Loader />
       ) : (
-        <div className="myOrdersPage">
+        <Container sx={{ mt: 10, mb: 10 }}>
           {rows.length === 0 ? (
-            <div className="emptyCart">
-              <RemoveShoppingCartIcon />
-              <Typography>You Have No order</Typography>
-              <Link to="/products">View Products</Link>
-            </div>
+            <BoxEmpty>
+              <IconButton
+                className="transition2"
+                sx={{
+                  background: "#000",
+                  "&:hover": {
+                    background: "#000",
+                  },
+                }}
+              >
+                <ListAltIcon sx={{ fontSize: "100px", color: "#ffd90c" }} />
+              </IconButton>
+              <TitleCart variant="h3">You Have No order</TitleCart>
+              <Link to="/products">
+                <ButtonCustom>View Products</ButtonCustom>
+              </Link>
+            </BoxEmpty>
           ) : (
             <DataGrid
               rows={rows}
@@ -123,10 +133,7 @@ const MyOrders = () => {
               autoHeight
             />
           )}
-
-          {/* <Typography id="myOrdersHeading">{user.name}'s Orders</Typography> */}
-          <Typography id="myOrdersHeading">Your Orders</Typography>
-        </div>
+        </Container>
       )}
     </Fragment>
   );
